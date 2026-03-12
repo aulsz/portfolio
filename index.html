@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Yeko Lab — Tech-native Playground</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        font-family: "Space Grotesk", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        color-scheme: dark;
+        --bg: #04050a;
+        --fg: #f4f6ff;
+        --muted: #9caad6;
+        --accent: #49ffe0;
+        --accent-2: #4ca3ff;
+        --accent-3: #c26eff;
+        --glass: rgba(11, 13, 25, 0.9);
+        --border: rgba(255, 255, 255, 0.08);
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background: radial-gradient(circle at top, rgba(20, 40, 100, 0.3), transparent 60%), var(--bg);
+        color: var(--fg);
+        overflow-x: hidden;
+      }
+      a {
+        color: var(--fg);
+        text-decoration: none;
+      }
+      .ambient {
+        position: fixed;
+        inset: 0;
+        overflow: hidden;
+        pointer-events: none;
+        z-index: 0;
+      }
+      .orb {
+        position: absolute;
+        width: 420px;
+        height: 420px;
+        background: radial-gradient(circle, rgba(60, 255, 208, 0.35), transparent 70%);
+        filter: blur(30px);
+        animation: float 18s ease-in-out infinite;
+      }
+      .orb--one { top: -80px; left: -80px; }
+      .orb--two { bottom: -120px; right: -60px; animation-duration: 22s; }
+      .orb--three { top: 40%; right: 20%; animation-duration: 26s; background: radial-gradient(circle, rgba(99, 71, 255, 0.4), transparent 70%); }
+      @keyframes float {
+        0% { transform: translate3d(0, 0, 0); }
+        50% { transform: translate3d(30px, -20px, 0); }
+        100% { transform: translate3d(0, 0, 0); }
+      }
+      .noise {
+        position: fixed;
+        inset: 0;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300' viewBox='0 0 300 300'%3E%3Crect width='300' height='300' fill='rgba(0,0,0,0)'/%3E%3Ccircle cx='10' cy='10' r='1' fill='rgba(255,255,255,0.03)'/%3E%3C/svg%3E");
+        opacity: 0.4;
+        mix-blend-mode: screen;
+        pointer-events: none;
+        z-index: 0;
+      }
+      .hero {
+        position: relative;
+        z-index: 1;
+        padding: 2.5rem clamp(1.5rem, 5vw, 4rem) 4rem;
+      }
+      .nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 1rem;
+      }
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+      .logo__mark {
+        width: 48px;
+        height: 48px;
+        border-radius: 16px;
+        background: linear-gradient(135deg, var(--accent-2), var(--accent));
+        display: grid;
+        place-items: center;
+        font-weight: 700;
+      }
+      .logo__subtitle {
+        color: var(--muted);
+        margin: 0;
+        font-size: 0.85rem;
+      }
+      .nav__links {
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+      }
+      .nav__links a {
+        font-weight: 500;
+        opacity: 0.85;
+      }
+      .nav__links .pill {
+        border: 1px solid var(--border);
+        padding: 0.4rem 1rem;
+        border-radius: 999px;
+        transition: border-color 0.3s;
+      }
+      .nav__links .pill:hover { border-color: var(--accent); }
+      .hero__content {
+        margin-top: 4rem;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 2rem;
+      }
+      .tag {
+        text-transform: uppercase;
+        letter-spacing: 0.2em;
+        font-size: 0.75rem;
+        color: var(--accent);
+      }
+      .hero h1 {
+        font-size: clamp(2.8rem, 6vw, 4.4rem);
+        line-height: 1.1;
+        margin: 0.8rem 0 1rem;
+      }
+      .hero h1 span { color: var(--accent-2); }
+      .lede {
+        color: var(--muted);
+        font-size: 1.1rem;
+        max-width: 52ch;
+      }
+      .hero__actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        margin-top: 1.5rem;
+      }
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.8rem 1.6rem;
+        border-radius: 999px;
+        font-weight: 600;
+        border: 1px solid transparent;
+        cursor: pointer;
+        transition: transform 0.2s, box-shadow 0.2s;
+      }
+      .btn.primary {
+        background: linear-gradient(120deg, var(--accent-2), var(--accent));
+        color: #020205;
+        box-shadow: 0 15px 45px rgba(73, 255, 224, 0.25);
+      }
+      .btn.ghost {
+        border-color: var(--border);
+        color: var(--fg);
+      }
+      .btn:hover { transform: translateY(-3px); }
+      .metric-card {
+        background: rgba(7, 10, 20, 0.8);
+        border: 1px solid var(--border);
+        padding: 1.5rem;
+        border-radius: 22px;
+        backdrop-filter: blur(16px);
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+      }
+      .metric-card__label {
+        opacity: 0.7;
+        text-transform: uppercase;
+        font-size: 0.75rem;
+        letter-spacing: 0.2em;
+      }
+      .metric-card__value {
+        font-size: 2.8rem;
+        margin: 0.5rem 0;
+      }
+      .metric-card__hint {
+        color: var(--muted);
+        font-size: 0.9rem;
+      }
+      main {
+        position: relative;
+        z-index: 1;
+      }
+      .section {
+        padding: 4rem clamp(1.5rem, 5vw, 4rem);
+      }
+      .section--alt { background: rgba(4, 6, 12, 0.7); }
+      .section__header {
+        max-width: 720px;
+        margin-bottom: 2.5rem;
+      }
+      .section__header h2 {
+        font-size: clamp(2rem, 4vw, 3rem);
+        margin: 0.4rem 0 0.6rem;
+      }
+      .case-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 1.5rem;
+      }
+      .case {
+        padding: 1.75rem;
+        border-radius: 26px;
+        background: rgba(10, 14, 25, 0.8);
+        border: 1px solid var(--border);
+        min-height: 340px;
+        display: flex;
+        flex-direction: column;
+        gap: 0.9rem;
+        transition: transform 0.4s ease, border-color 0.2s ease;
+        transform-style: preserve-3d;
+      }
+      .case:hover {
+        border-color: rgba(73, 255, 224, 0.4);
+        transform: translateY(-8px);
+      }
+      .case__meta {
+        display: flex;
+        justify-content: space-between;
+        font-size: 0.85rem;
+        color: var(--muted);
+      }
+      .case ul {
+        padding-left: 1.2rem;
+        margin: 0;
+        color: var(--muted);
+      }
+      .section--alt .timeline {
+        display: grid;
+        gap: 1.5rem;
+      }
+      .timeline__item {
+        padding: 1.5rem;
+        border-radius: 22px;
+        border: 1px solid var(--border);
+        background: rgba(8, 12, 22, 0.8);
+        box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+      }
+      .timeline__label {
+        color: var(--accent-3);
+        font-size: 0.8rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+      }
+      .chip {
+        margin-top: 1rem;
+        padding: 0.5rem 1.2rem;
+        border-radius: 999px;
+        border: none;
+        background: rgba(255, 255, 255, 0.08);
+        color: var(--fg);
+        font-weight: 600;
+        cursor: pointer;
+        transition: background 0.3s;
+      }
+      .chip:hover { background: rgba(73, 255, 224, 0.2); }
+      .community-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 1.2rem;
+      }
+      .community-card {
+        padding: 2rem 1.5rem;
+        border-radius: 22px;
+        border: 1px solid var(--border);
+        background: rgba(5, 10, 20, 0.85);
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+      }
+      .community-card::after {
+        content: "";
+        position: absolute;
+        inset: 1px;
+        border-radius: inherit;
+        background: radial-gradient(circle, rgba(73, 255, 224, 0.1), transparent 70%);
+        opacity: 0;
+        transition: opacity 0.4s;
+      }
+      .community-card:hover::after { opacity: 1; }
+      .community-card__value {
+        font-size: 3rem;
+        margin: 0.5rem 0;
+      }
+      .community-card__label {
+        text-transform: uppercase;
+        font-size: 0.75rem;
+        letter-spacing: 0.3em;
+        color: var(--muted);
+      }
+      .section--cta { padding-bottom: 6rem; }
+      .cta {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 2rem;
+        align-items: center;
+      }
+      .cta__card {
+        padding: 1.8rem;
+        border-radius: 26px;
+        border: 1px solid var(--border);
+        background: rgba(8, 12, 25, 0.85);
+      }
+      .cta__title {
+        font-size: 0.85rem;
+        letter-spacing: 0.2em;
+        color: var(--accent-2);
+      }
+      .cta__card ul {
+        list-style: none;
+        padding: 0;
+        margin: 1rem 0 0;
+        display: flex;
+        flex-direction: column;
+        gap: 0.6rem;
+        color: var(--muted);
+      }
+      .cta__footer {
+        margin-top: 1.2rem;
+        color: var(--fg);
+        font-weight: 600;
+      }
+      .footer {
+        text-align: center;
+        padding: 2rem;
+        color: var(--muted);
+        font-size: 0.9rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.05);
+      }
+      [data-reveal] {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.8s ease, transform 0.8s ease;
+      }
+      [data-reveal].is-visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      @media (max-width: 720px) {
+        .nav__links {
+          flex-wrap: wrap;
+          justify-content: flex-end;
+        }
+        .hero {
+          padding-top: 1.5rem;
+        }
+        .hero__content {
+          margin-top: 2rem;
+        }
+        .case {
+          min-height: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="ambient">
+      <span class="orb orb--one"></span>
+      <span class="orb orb--two"></span>
+      <span class="orb orb--three"></span>
+    </div>
+    <div class="noise"></div>
+    <header class="hero" id="top">
+      <nav class="nav">
+        <div class="logo">
+          <span class="logo__mark">YL</span>
+          <div>
+            <p class="logo__title">Yeko Lab</p>
+            <p class="logo__subtitle">Systems • Strategy • Story</p>
+          </div>
+        </div>
+        <div class="nav__links">
+          <a href="#work">Work</a>
+          <a href="#knowledge">Knowledge</a>
+          <a href="#community">Community</a>
+          <a href="#contact" class="pill">Contact</a>
+        </div>
+      </nav>
+      <div class="hero__content">
+        <div>
+          <p class="tag">Portfolio + Playground</p>
+          <h1>Building elegant systems <span>that feel like future artifacts.</span></h1>
+          <p class="lede">
+            Curated experiments, client work, and community drop-ins from Yeko. Crafted with intent, documented with care, and always a little bit ahead of schedule.
+          </p>
+          <div class="hero__actions">
+            <a class="btn primary" href="#work">See the builds</a>
+            <a class="btn ghost" href="#knowledge">Download dossier</a>
+          </div>
+        </div>
+        <div class="hero__metrics">
+          <div class="metric-card" data-reveal>
+            <p class="metric-card__label">Deployments</p>
+            <p class="metric-card__value">48</p>
+            <p class="metric-card__hint">Full-stack launches since 2021</p>
+          </div>
+          <div class="metric-card" data-reveal>
+            <p class="metric-card__label">Communities Activated</p>
+            <p class="metric-card__value">12</p>
+            <p class="metric-card__hint">Across Discord, Slack, on-site</p>
+          </div>
+          <div class="metric-card" data-reveal>
+            <p class="metric-card__label">Avg. ROI</p>
+            <p class="metric-card__value">327%</p>
+            <p class="metric-card__hint">Measured within 60 days</p>
+          </div>
+        </div>
+      </div>
+    </header>
+    <main>
+      <section class="section" id="work">
+        <div class="section__header">
+          <p class="tag">Featured Case Studies</p>
+          <h2>Proof-of-work meets playful polish.</h2>
+          <p>Hover / tap cards for live context, micro-interactions, and quick stats.</p>
+        </div>
+        <div class="case-grid">
+          <article class="case" data-tilt>
+            <div class="case__meta">
+              <p class="case__tag">AI Ops</p>
+              <p class="case__year">2025</p>
+            </div>
+            <h3>Autonomous Support Desk</h3>
+            <p>Designed workflows + guardrails for an LLM-first support org, trimming response time from 9h → 46m.</p>
+            <ul>
+              <li>LLM orchestration + fallback</li>
+              <li>Escalation map</li>
+              <li>Real-time telemetry wall</li>
+            </ul>
+          </article>
+          <article class="case" data-tilt>
+            <div class="case__meta">
+              <p class="case__tag">Community</p>
+              <p class="case__year">2024</p>
+            </div>
+            <h3>Creator Portfolio HUB</h3>
+            <p>Built a self-serve showcase with programmable prompts, unlocking a 4× increase in inbound demos.</p>
+            <ul>
+              <li>Composable CMS</li>
+              <li>WebGL hero motion</li>
+              <li>Discord role sync</li>
+            </ul>
+          </article>
+          <article class="case" data-tilt>
+            <div class="case__meta">
+              <p class="case__tag">Product</p>
+              <p class="case__year">2023</p>
+            </div>
+            <h3>Spatial Strategy Desk</h3>
+            <p>Immersive analytics environment for a logistics team, with multi-surface interaction + haptics.</p>
+            <ul>
+              <li>Canvas orchestrations</li>
+              <li>BLE beacon mapping</li>
+              <li>Executive-ready reporting</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+      <section class="section section--alt" id="knowledge">
+        <div class="section__header">
+          <p class="tag">Knowledge Vault</p>
+          <h2>Living playbooks and field notes.</h2>
+          <p>Indexed, versioned, and open to collaborators.</p>
+        </div>
+        <div class="timeline">
+          <article class="timeline__item">
+            <p class="timeline__label">Latest Drop</p>
+            <h3>Signal Choreography 101</h3>
+            <p>How to orchestrate multi-agent comms without burning trust.</p>
+            <button class="chip">Read excerpt</button>
+          </article>
+          <article class="timeline__item">
+            <p class="timeline__label">Playbook</p>
+            <h3>Zero-Noise Community Launch</h3>
+            <p>Template + automation pack for spinning up curated spaces.</p>
+            <button class="chip">Download kit</button>
+          </article>
+          <article class="timeline__item">
+            <p class="timeline__label">Notebook</p>
+            <h3>LLM QA Stress Tests</h3>
+            <p>Benchmarks, failure libraries, and recovery patterns.</p>
+            <button class="chip">View results</button>
+          </article>
+        </div>
+      </section>
+      <section class="section" id="community">
+        <div class="section__header">
+          <p class="tag">Community Pulse</p>
+          <h2>Builders, operators, and co-conspirators.</h2>
+          <p>Live stats from the Yeko Discord + partner pods.</p>
+        </div>
+        <div class="community-grid">
+          <div class="community-card" data-spark>
+            <p class="community-card__value">312</p>
+            <p class="community-card__label">Active Members</p>
+            <p class="community-card__hint">38 currently in co-work mode</p>
+          </div>
+          <div class="community-card" data-spark>
+            <p class="community-card__value">27</p>
+            <p class="community-card__label">Live Threads</p>
+            <p class="community-card__hint">Ops, AI, design, IRL</p>
+          </div>
+          <div class="community-card" data-spark>
+            <p class="community-card__value">6</p>
+            <p class="community-card__label">Open Collaborations</p>
+            <p class="community-card__hint">Seeking signal boosters</p>
+          </div>
+        </div>
+      </section>
+      <section class="section section--cta" id="contact">
+        <div class="cta">
+          <div>
+            <p class="tag">Next Slot</p>
+            <h2>Book a lab session.</h2>
+            <p>Weekly office hours for founders, operators, and teams that want a sharper operating system.</p>
+            <div class="hero__actions">
+              <a class="btn primary" href="mailto:hello@yeko.studio">Request brief</a>
+              <a class="btn ghost" href="#top">Back to top</a>
+            </div>
+          </div>
+          <div class="cta__card" data-tilt>
+            <p class="cta__title">Session Menu</p>
+            <ul>
+              <li>⚡ Rapid ops triage</li>
+              <li>🧠 AI workflow mapping</li>
+              <li>🎨 Portfolio positioning</li>
+              <li>🤝 Partnership strategy</li>
+            </ul>
+            <p class="cta__footer">72h turnaround on follow-ups.</p>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer class="footer">
+      <p>© <span id="year"></span> Yeko Lab. Built with native HTML, CSS, and a sprinkle of JS.</p>
+      <p>Made for async, curated for humans.</p>
+    </footer>
+    <script>
+      const year = document.getElementById("year");
+      if (year) year.textContent = new Date().getFullYear();
+
+      const revealTargets = document.querySelectorAll(
+        ".case, .timeline__item, .community-card, .cta__card, .metric-card"
+      );
+      revealTargets.forEach((el) => el.setAttribute("data-reveal", ""));
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("is-visible");
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.3 }
+      );
+      revealTargets.forEach((el) => observer.observe(el));
+
+      const tiltCards = document.querySelectorAll("[data-tilt]");
+      tiltCards.forEach((card) => {
+        card.addEventListener("mousemove", (event) => {
+          const bounds = card.getBoundingClientRect();
+          const x = ((event.clientX - bounds.left) / bounds.width - 0.5) * 20;
+          const y = ((event.clientY - bounds.top) / bounds.height - 0.5) * -20;
+          card.style.transform = `perspective(900px) rotateX(${y}deg) rotateY(${x}deg)`;
+        });
+        card.addEventListener("mouseleave", () => {
+          card.style.transform = "perspective(900px) rotateX(0deg) rotateY(0deg)";
+        });
+      });
+
+      const sparkCards = document.querySelectorAll("[data-spark]");
+      setInterval(() => {
+        const card = sparkCards[Math.floor(Math.random() * sparkCards.length)];
+        if (!card) return;
+        card.animate(
+          [
+            { boxShadow: "0 0 0 rgba(73,255,224,0)" },
+            { boxShadow: "0 0 30px rgba(73,255,224,0.35)" },
+            { boxShadow: "0 0 0 rgba(73,255,224,0)" },
+          ],
+          {
+            duration: 2200,
+            easing: "ease-out",
+          }
+        );
+      }, 2600);
+    </script>
+  </body>
+</html>
