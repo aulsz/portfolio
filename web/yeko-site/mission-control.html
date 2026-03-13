@@ -1,61 +1,148 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Mission Control (Private)</title>
-    <style>
-      :root { --bg:#110714; --panel:#1b1022; --text:#ffeefe; --muted:#d8b9da; --pink:#ff67c4; --violet:#b17bff; --line:rgba(255,255,255,.11); }
-      *{box-sizing:border-box}
-      body{margin:0;color:var(--text);font-family:Inter,system-ui,sans-serif;background:radial-gradient(1200px 600px at -10% -10%, #652047 0%, transparent 70%),radial-gradient(900px 700px at 110% 0%, #43205e 0%, transparent 70%),var(--bg)}
-      .hidden{display:none}
-      .gate{min-height:100vh;display:grid;place-items:center;padding:20px}
-      .card{width:min(420px,95vw);background:rgba(255,255,255,.06);border:1px solid var(--line);border-radius:16px;padding:20px}
-      input,button{width:100%;padding:11px 12px;border-radius:10px;border:1px solid var(--line);background:#1a1123;color:var(--text)}
-      button{margin-top:10px;background:linear-gradient(120deg,var(--pink),var(--violet));color:#22001f;border:none;font-weight:700;cursor:pointer}
-      .shell{max-width:1200px;margin:0 auto;padding:24px}
-      .row{display:grid;grid-template-columns:repeat(4,minmax(150px,1fr));gap:10px}
-      .kpi{background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:12px;padding:12px}
-      .panel{margin-top:12px;background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:12px;padding:14px}
-      @media(max-width:900px){.row{grid-template-columns:repeat(2,minmax(130px,1fr));}}
-    </style>
-  </head>
-  <body>
-    <section class="gate" id="gate">
-      <div class="card">
-        <h2 style="margin-top:0">Private Mission Control</h2>
-        <p style="color:var(--muted)">Owner-only view. Enter passphrase.</p>
-        <input id="pass" type="password" placeholder="Passphrase" />
-        <button id="unlock">Unlock</button>
-        <p id="err" style="color:#ff9ab0;display:none">Incorrect passphrase.</p>
-      </div>
-    </section>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mission Control // Fallout Terminal</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=VT323&family=Share+Tech+Mono&display=swap');
+    :root{
+      --bg:#030603; --bg2:#081108; --panel:#0c180c;
+      --line:rgba(135,255,135,.30); --txt:#98ff98; --muted:#5cb85c;
+      --ok:#98ff98; --warn:#ffbf66; --bad:#ff8a8a; --glow:rgba(130,255,130,.26);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      color:var(--txt);
+      font-family:"VT323","Share Tech Mono","Cascadia Mono","Consolas",monospace;
+      letter-spacing:.4px;
+      background:
+        radial-gradient(800px 400px at 50% -10%, rgba(120,255,120,.10), transparent 60%),
+        linear-gradient(180deg,var(--bg),var(--bg2));
+      text-shadow:0 0 8px rgba(140,255,140,.15);
+    }
+    body::before{content:"";position:fixed;inset:0;pointer-events:none;background:repeating-linear-gradient(to bottom, rgba(120,255,120,.08), rgba(120,255,120,.08) 1px, transparent 1px, transparent 3px);opacity:.35}
+    body::after{content:"";position:fixed;inset:0;pointer-events:none;box-shadow:inset 0 0 120px rgba(120,255,120,.14)}
 
-    <main id="app" class="hidden">
-      <div class="shell">
-        <h1>Mission Control — Monogatari Pink</h1>
-        <p style="color:var(--muted)">Private ops dashboard for Yeko only.</p>
-        <div class="row">
-          <div class="kpi"><small>Active Jobs</small><h2>9</h2></div>
-          <div class="kpi"><small>Today Tasks</small><h2>6</h2></div>
-          <div class="kpi"><small>Health</small><h2>97%</h2></div>
-          <div class="kpi"><small>Risk</small><h2>Low</h2></div>
+    .hidden{display:none!important}
+    .gate{min-height:100vh;display:grid;place-items:center;padding:20px}
+    .card,.panel{background:rgba(10,22,10,.72);border:1px solid var(--line);border-radius:12px}
+    .card{width:min(420px,95vw);padding:18px}
+    input,button,select{width:100%;padding:10px;border:1px solid var(--line);border-radius:8px;background:#091209;color:var(--txt);font-family:inherit;font-size:20px}
+    button{cursor:pointer;font-weight:700}
+
+    .shell{max-width:1320px;margin:0 auto;padding:16px}
+    .top{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-bottom:10px;flex-wrap:wrap}
+    .left{display:flex;gap:10px;align-items:center}
+    .sig{width:36px;height:36px;border:1px solid var(--line);display:grid;place-items:center;border-radius:8px;box-shadow:0 0 15px var(--glow)}
+
+    .pill,.tag,.chg{padding:.2rem .5rem;border:1px solid rgba(135,255,135,.40);border-radius:999px;background:rgba(120,255,120,.09);font-size:16px;color:var(--txt)}
+    .layout{display:grid;grid-template-columns:250px 1fr;gap:10px}
+    .side{padding:10px}
+    .navh{color:var(--muted);font-size:14px;letter-spacing:.14em;text-transform:uppercase;margin:6px 6px}
+    .navbtn{width:100%;text-align:left;padding:9px;border-radius:8px;border:1px solid transparent;background:transparent;color:var(--txt);margin-bottom:5px;font-size:22px}
+    .navbtn:hover,.navbtn.active{border-color:rgba(130,255,130,.5);background:rgba(120,255,120,.13)}
+
+    .main{display:grid;gap:10px}
+    .toolbar,.pad{padding:10px}
+    .toolbar{display:flex;gap:8px;flex-wrap:wrap}
+    .mini{width:auto;padding:8px 10px;margin:0;font-size:20px}
+    .kpis{display:grid;grid-template-columns:repeat(5,minmax(120px,1fr));gap:8px}
+    .k{padding:10px}.l{color:var(--muted);font-size:14px;text-transform:uppercase}.v{font-size:32px;font-weight:700}
+    .grid{display:grid;grid-template-columns:1.4fr 1fr;gap:10px}.head{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+    .head h3{margin:0;font-size:24px}
+
+    .list,.markets,.stack{display:grid;gap:7px}
+    .item,.mk,.rowx{padding:9px;border:1px solid var(--line);border-radius:9px;background:rgba(120,255,120,.05)}
+    .t{font-weight:700;font-size:22px}.m{color:var(--muted);font-size:16px}
+    .chart{height:170px;border:1px solid var(--line);border-radius:10px}
+    svg{width:100%;height:100%}
+    .log{max-height:220px;overflow:auto;border:1px solid var(--line);border-radius:9px;padding:8px;background:rgba(0,0,0,.25)}
+    .logline{font-size:17px;color:var(--muted);padding:4px 3px;border-bottom:1px dashed rgba(120,255,120,.2)}
+    .mk{display:flex;justify-content:space-between;align-items:center}.up{color:var(--ok)} .down{color:var(--bad)} .warn{color:var(--warn)}
+
+    .calc{display:grid;grid-template-columns:repeat(2,minmax(120px,1fr));gap:7px;margin-top:8px}
+    .calc-out{margin-top:8px;padding:8px;border:1px dashed var(--line);border-radius:8px;color:var(--muted);font-size:18px}
+
+    .chat-wrap{display:grid;grid-template-columns:1fr 280px;gap:10px}
+    .chat-head{padding:10px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between}
+    .chat-feed{height:260px;overflow:auto;padding:10px;display:flex;flex-direction:column;gap:7px}
+    .msg{max-width:78%;padding:8px 10px;border:1px solid var(--line);border-radius:10px;font-size:20px}
+    .msg.user{align-self:flex-end;background:rgba(120,255,120,.14)}
+    .msg.bot{align-self:flex-start;background:rgba(120,255,120,.06)}
+    .chat-compose{display:flex;gap:8px;padding:10px;border-top:1px solid var(--line)} .chat-compose input{margin:0}
+    .quick{display:grid;gap:7px;padding:10px}.quick button{margin:0;text-align:left}
+
+    .cam{padding:8px 10px;min-width:260px}
+    .cam-screen{position:relative;border:1px solid var(--line);border-radius:9px;overflow:hidden;background:#061006;padding:6px;height:110px}
+    .cam-screen::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(to bottom, rgba(120,255,120,.06), rgba(120,255,120,.06) 1px, transparent 1px, transparent 3px)}
+    .cam-inner{position:relative;display:flex;gap:8px;align-items:center}
+    .avatar-wrap{width:72px;height:72px;border:1px solid var(--line);border-radius:8px;overflow:hidden;box-shadow:0 0 12px var(--glow)}\n    .avatar-wrap img{width:100%;height:100%;object-fit:cover;display:block;filter:saturate(1.05) contrast(1.03)}
+
+    @media(max-width:1080px){.layout,.grid,.chat-wrap{grid-template-columns:1fr}.kpis{grid-template-columns:repeat(2,minmax(120px,1fr))}}
+  </style>
+</head>
+<body>
+  <section class="gate" id="gate">
+    <div class="card">
+      <h2 style="margin-top:0">Private Mission Control</h2>
+      <p class="m">Owner-only view. Enter passphrase.</p>
+      <input id="pass" type="password" placeholder="Passphrase" />
+      <button id="unlock" style="margin-top:8px">Unlock</button>
+      <p id="err" style="display:none;color:#ff9aa7">Incorrect passphrase.</p>
+    </div>
+  </section>
+
+  <main id="app" class="hidden"><div class="shell">
+    <div class="top">
+      <div class="left"><div class="sig">忍</div><div><div style="font-weight:700;font-size:26px">MISSION CONTROL // FALLOUT</div><div class="m">Classic green terminal mode</div></div></div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap"><span class="pill">Ctrl/Cmd + K</span><span class="pill">Status: <span id="stat" class="up">ONLINE</span></span></div>
+      <div class="panel cam">
+        <div class="m" style="margin-bottom:6px">DEVICE CAM // SHINOBU</div>
+        <div class="cam-screen">
+          <div class="cam-inner">
+            <div class="avatar-wrap"><img src="./shinobu-cam.jpg" alt="Shinobu" /></div>\n            <div><div style="font-weight:700;font-size:20px">SHINOBU CAM // ONLINE</div><div class="m">"Monitoring mission feed..."</div></div>
+          </div>
         </div>
-        <div class="panel"><h3>Pipeline</h3><p>Daily Brief • School Reminders • Market Pulse • Backups • Watchdog</p></div>
       </div>
-    </main>
+    </div>
 
-    <script>
-      // NOTE: client-side passphrase is obfuscation, not true server security.
-      const EXPECTED = "yeko-shinobu-private";
-      document.getElementById('unlock').onclick = () => {
-        const ok = document.getElementById('pass').value === EXPECTED;
-        document.getElementById('err').style.display = ok ? 'none' : 'block';
-        if (ok) {
-          document.getElementById('gate').classList.add('hidden');
-          document.getElementById('app').classList.remove('hidden');
-        }
-      };
-    </script>
-  </body>
+    <div class="layout">
+      <aside class="panel side"><div class="navh">Views</div><button class="navbtn active" data-view="overview">Overview</button><button class="navbtn" data-view="school">School Ops</button><button class="navbtn" data-view="career">Career</button><button class="navbtn" data-view="market">Market</button><button class="navbtn" data-view="reliability">Reliability</button></aside>
+      <section class="main">
+        <div class="panel toolbar"><button class="mini" id="syncNow">Run quick sync</button><button class="mini" id="simulate">Simulate event spike</button><select id="severity" class="mini"><option value="all">Filter: all logs</option><option value="ok">ok</option><option value="warn">warn</option><option value="bad">bad</option></select></div>
+        <div class="kpis"><article class="panel k"><div class="l">Active Jobs</div><div class="v" data-num="9">0</div></article><article class="panel k"><div class="l">Today Tasks</div><div class="v" data-num="6">0</div></article><article class="panel k"><div class="l">Health</div><div class="v" id="health">97%</div></article><article class="panel k"><div class="l">Alerts</div><div class="v" id="alerts">1</div></article><article class="panel k"><div class="l">Uptime</div><div class="v" id="uptime">02:11:42</div></article></div>
+        <div class="grid"><article class="panel pad"><div class="head"><h3>Mission Throughput (30d)</h3><span class="tag">live-ish</span></div><div class="chart"><svg viewBox="0 0 600 200" preserveAspectRatio="none"><polyline id="line" fill="none" stroke="#9CFF9C" stroke-width="3" points=""/></svg></div><div class="m" style="margin-top:8px">Tip: Ctrl/Cmd + K for command palette.</div></article><article class="panel pad"><div class="head"><h3>Runtime Signals</h3><span class="tag">auto</span></div><div class="list" id="signals"></div></article></div>
+        <div class="grid"><article class="panel pad"><div class="head"><h3>Action Queue</h3><span class="tag" id="viewTag">overview</span></div><div class="list" id="queue"></div></article><article class="panel pad"><div class="head"><h3>Event Log</h3><span class="tag">stream</span></div><div class="log" id="log"></div></article></div>
+        <div class="grid" id="marketGrid" style="display:none;"><article class="panel pad"><div class="head"><h3>Major Markets</h3><span class="tag">market</span></div><div class="markets" id="marketsList"></div></article><article class="panel pad"><div class="head"><h3>Market Ops Stack</h3><span class="tag">autonomy</span></div><div class="stack"><div class="rowx"><div><div class="t">08:35 Watchlist Levels</div><small class="m">SPY / QQQ / IWM</small></div><span class="chg up">active</span></div><div class="rowx"><div><div class="t">08:45 Pre-Market Checklist</div><small class="m">bias + event risk</small></div><span class="chg up">active</span></div><div class="rowx"><div><div class="t">09:20 Greenlight / No-Trade</div><small class="m">hard guardrail</small></div><span class="chg up">active</span></div><div class="rowx"><div><div class="t">16:30 Journal Score</div><small class="m">rule adherence</small></div><span class="chg up">active</span></div><div class="rowx"><div><div class="t">18:30 Scenario Agent</div><small class="m">bull/base/bear</small></div><span class="chg up">active</span></div></div><div class="head" style="margin-top:10px"><h3>Quick Position Size</h3><span class="tag">1% risk</span></div><div class="calc"><input id="acct" value="2000" placeholder="Account $" /><input id="riskpct" value="1" placeholder="Risk %" /><input id="entry" value="510" placeholder="Entry" /><input id="stop" value="508.5" placeholder="Stop" /></div><button class="mini" id="calcBtn" style="margin-top:8px">Calculate</button><div class="calc-out" id="calcOut">Shares: — | Risk$: — | Position Value: —</div></article></div>
+        <div class="chat-wrap"><article class="panel"><div class="chat-head"><div><strong>Mission Chat</strong><div class="m">operator terminal</div></div><span class="tag" id="chatState">ready</span></div><div class="chat-feed" id="chatFeed"><div class="msg bot">Shinobu: Terminal online. Request sync, market scan, or assignment status.</div></div><div class="m" id="typing" style="display:none;padding:0 10px 8px">Shinobu is typing…</div><div class="chat-compose"><input id="chatInput" placeholder="Type command or note…" /><button id="chatSend" class="mini">Send</button></div></article><aside class="panel"><div class="head" style="padding:10px 10px 0"><h3>Quick Prompts</h3></div><div class="quick" id="quickPrompts"><button data-q="Run quick sync and show failures.">Run quick sync and show failures.</button><button data-q="Show due assignments in next 24h.">Show due assignments in next 24h.</button><button data-q="Give me top 3 internship actions for today.">Give me top 3 internship actions for today.</button><button data-q="Summarize market risk in 3 bullets.">Summarize market risk in 3 bullets.</button></div></aside></div>
+      </section>
+    </div>
+  </div></main>
+
+  <script src="mission-data.js"></script>
+  <script>
+    const EXPECTED='Tibabug7172';
+    const state={view:'overview',queue:{overview:['Review morning mission snapshot','Check school due < 24h','Triage internship lead shortlist'],school:['ESET due soon','Validate Canvas ICS pull','Publish school digest'],career:['Send 2 follow-up emails','Shortlist 3 openings','Update project bullet metrics'],market:['Check macro catalysts','Publish scenario probabilities','Review invalidation signals'],reliability:['Verify nightly backup','Run recovery drill check','Audit watchdog anti-loop']},signals:[{s:'ok',t:'Discord path stable',m:'watchdog healthy'},{s:'ok',t:'School reminders running',m:'ICS sync active'},{s:'warn',t:'Update available',m:'OpenClaw npm pending'}],logs:[{s:'ok',t:'08:30 Daily brief posted'},{s:'ok',t:'07:00 School digest posted'},{s:'warn',t:'Gateway update pending'},{s:'ok',t:'Market pulse generated'}]};
+    const markets=[{name:'S&P 500 (SPX)',value:'5,214.2',change:'+0.42%'},{name:'NASDAQ 100 (NDX)',value:'18,239.6',change:'+0.55%'},{name:'Dow Jones (DJIA)',value:'39,112.4',change:'-0.08%'},{name:'Russell 2000 (RUT)',value:'2,083.7',change:'+0.21%'},{name:'FTSE 100',value:'8,032.5',change:'-0.19%'},{name:'DAX 40',value:'18,004.8',change:'+0.31%'},{name:'Nikkei 225',value:'39,501.1',change:'+0.27%'},{name:'Hang Seng',value:'17,214.6',change:'-0.36%'}];
+    function mergeMissionData(p){if(!p||typeof p!=='object')return;if(p.queue)state.queue={...state.queue,...p.queue};if(Array.isArray(p.signals))state.signals=p.signals;if(Array.isArray(p.logs))state.logs=p.logs} mergeMissionData(window.MISSION_DATA);
+    async function refreshMissionData(){try{const r=await fetch(`mission-data.js?t=${Date.now()}`,{cache:'no-store'});const tx=await r.text();const m=tx.match(/window\.MISSION_DATA\s*=\s*(\{[\s\S]*\});?/);if(m&&m[1]){mergeMissionData(Function(`return (${m[1]})`)());renderQueue();renderSignals();renderLogs()}}catch{}}
+    function unlock(){const ok=(document.getElementById('pass').value||'').trim()===EXPECTED;document.getElementById('err').style.display=ok?'none':'block';if(ok){document.getElementById('gate').classList.add('hidden');document.getElementById('app').classList.remove('hidden');init()}}
+    document.getElementById('unlock').addEventListener('click',unlock);document.getElementById('pass').addEventListener('keydown',e=>{if(e.key==='Enter')unlock()});
+    function renderQueue(){document.getElementById('viewTag').textContent=state.view;const q=state.queue[state.view]||[];document.getElementById('queue').innerHTML=q.map(x=>`<div class='item'><div class='t'>${x}</div><div class='m'>next action</div></div>`).join('')}
+    function renderSignals(){document.getElementById('signals').innerHTML=state.signals.map(x=>`<div class='item'><div class='t ${x.s==='ok'?'up':x.s==='warn'?'warn':'down'}'>${x.t}</div><div class='m'>${x.m}</div></div>`).join('')}
+    function renderLogs(){const f=document.getElementById('severity').value;const rows=state.logs.filter(l=>f==='all'||l.s===f);document.getElementById('log').innerHTML=rows.map(l=>`<div class='logline'><span class='${l.s==='ok'?'up':l.s==='warn'?'warn':'down'}'>[${l.s}]</span> ${l.t}</div>`).join('')}
+    function sparkline(){const pts=[];let y=110;for(let x=0;x<=600;x+=25){y+=(Math.random()-0.45)*22;y=Math.max(35,Math.min(170,y));pts.push(`${x},${y.toFixed(1)}`)}document.getElementById('line').setAttribute('points',pts.join(' '))}
+    function animateNums(){document.querySelectorAll('[data-num]').forEach(el=>{const n=+el.dataset.num;let i=0;const t=setInterval(()=>{i++;el.textContent=i;if(i>=n)clearInterval(t)},70)})}
+    function addLog(s,t){state.logs.unshift({s,t});if(state.logs.length>80)state.logs.pop();renderLogs()}
+    function renderMarkets(){const w=document.getElementById('marketsList');w.innerHTML=markets.map(m=>`<div class='mk'><div><div class='t'>${m.name}</div><div class='m'>${m.value}</div></div><span class='chg ${m.change.trim().startsWith('+')?'up':'down'}'>${m.change}</span></div>`).join('')}
+    function setMarketVisibility(){document.getElementById('marketGrid').style.display=state.view==='market'?'grid':'none'}
+    function addChat(role,text){const feed=document.getElementById('chatFeed');const el=document.createElement('div');el.className=`msg ${role}`;el.textContent=text;feed.appendChild(el);feed.scrollTop=feed.scrollHeight}
+    function respondChat(input){const t=input.toLowerCase();if(t.includes('sync'))return'Quick sync queued. Health nominal. One warning: gateway update pending.';if(t.includes('due')||t.includes('assignment'))return'Due-soon scan: check #school-reminders. Prioritize anything in the 24h window first.';if(t.includes('internship')||t.includes('career'))return'Top moves: apply 2 targeted roles, send 2 follow-ups, refine one project bullet with measurable impact.';if(t.includes('market'))return'Risk snapshot: macro volatility elevated; use scenario bands and avoid oversizing.';return'Acknowledged. I can convert that to an action queue item.'}
+    function init(){const sv=localStorage.getItem('mc_view');if(sv&&state.queue[sv])state.view=sv;const ss=localStorage.getItem('mc_severity');if(ss)document.getElementById('severity').value=ss;animateNums();sparkline();renderQueue();renderSignals();renderLogs();renderMarkets();setMarketVisibility();document.querySelectorAll('.navbtn').forEach(n=>n.classList.remove('active'));const ab=document.querySelector(`.navbtn[data-view="${state.view}"]`);if(ab)ab.classList.add('active');document.querySelectorAll('.navbtn').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.navbtn').forEach(n=>n.classList.remove('active'));b.classList.add('active');state.view=b.dataset.view;localStorage.setItem('mc_view',state.view);renderQueue();setMarketVisibility();addLog('ok',`view switched: ${state.view}`)}));document.getElementById('severity').addEventListener('change',()=>{localStorage.setItem('mc_severity',document.getElementById('severity').value);renderLogs()});document.getElementById('syncNow').addEventListener('click',()=>{addLog('ok','manual quick sync triggered');document.getElementById('health').textContent=`${95+Math.floor(Math.random()*4)}%`});document.getElementById('simulate').addEventListener('click',()=>{addLog('warn','simulated event spike detected');document.getElementById('alerts').textContent=String(+document.getElementById('alerts').textContent+1)});let sec=7902;setInterval(()=>{sec++;const h=String(Math.floor(sec/3600)).padStart(2,'0');const m=String(Math.floor((sec%3600)/60)).padStart(2,'0');const s=String(sec%60).padStart(2,'0');document.getElementById('uptime').textContent=`${h}:${m}:${s}`},1000);setInterval(()=>{if(Math.random()>.6)addLog('ok','heartbeat acknowledged')},9000);setInterval(sparkline,6000);refreshMissionData();setInterval(refreshMissionData,60000);const runCalc=()=>{const acct=parseFloat(document.getElementById('acct').value||'0');const riskPct=parseFloat(document.getElementById('riskpct').value||'0');const entry=parseFloat(document.getElementById('entry').value||'0');const stop=parseFloat(document.getElementById('stop').value||'0');const riskD=acct*(riskPct/100);const rps=Math.abs(entry-stop);const shares=rps>0?Math.floor(riskD/rps):0;const posVal=shares*entry;document.getElementById('calcOut').textContent=`Shares: ${shares} | Risk$: ${riskD.toFixed(2)} | Position Value: ${posVal.toFixed(2)}`};document.getElementById('calcBtn').addEventListener('click',runCalc);runCalc();const chatInput=document.getElementById('chatInput');const chatSend=document.getElementById('chatSend');const typing=document.getElementById('typing');const chatState=document.getElementById('chatState');const sendChat=(text)=>{const val=(text||chatInput.value||'').trim();if(!val)return;addChat('user',`You: ${val}`);addLog('ok',`chat prompt: ${val.slice(0,40)}`);chatInput.value='';typing.style.display='block';chatState.textContent='typing';setTimeout(()=>{typing.style.display='none';chatState.textContent='ready';addChat('bot',`Shinobu: ${respondChat(val)}`)},550)};chatSend.addEventListener('click',()=>sendChat());chatInput.addEventListener('keydown',e=>{if(e.key==='Enter')sendChat()});document.getElementById('quickPrompts').addEventListener('click',e=>{const q=e.target?.dataset?.q;if(q)sendChat(q)});setInterval(()=>{document.body.style.filter=Math.random()>0.94?'brightness(1.05)':'brightness(1)'},180)}
+  </script>
+</body>
 </html>
+
