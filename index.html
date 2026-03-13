@@ -176,6 +176,7 @@
           <a href="#work">Work</a>
           <a href="#focus">Focus</a>
           <a href="#discord">Discord</a>
+          <a href="https://www.linkedin.com/in/collinsculbert/" target="_blank" rel="noopener">LinkedIn</a>
           <a href="#contact" class="pill">Contact</a>
         </div>
       </nav>
@@ -369,19 +370,19 @@
             <p class="timeline__label">Latest Drop</p>
             <h3>Signal Choreography 101</h3>
             <p>How to orchestrate multi-agent comms without burning trust.</p>
-            <button class="chip">Read excerpt</button>
+            <a class="chip" href="#bot-guide">How to build</a>
           </article>
           <article class="timeline__item">
             <p class="timeline__label">Playbook</p>
             <h3>Zero-Noise Community Launch</h3>
             <p>Template + automation pack for spinning up curated spaces.</p>
-            <button class="chip">Download kit</button>
+            <a class="chip" href="#bot-guide">How to build</a>
           </article>
           <article class="timeline__item">
             <p class="timeline__label">Notebook</p>
             <h3>LLM QA Stress Tests</h3>
             <p>Benchmarks, failure libraries, and recovery patterns.</p>
-            <button class="chip">View results</button>
+            <a class="chip" href="#bot-guide">How to build</a>
           </article>
         </div>
       </section>
@@ -431,28 +432,32 @@
         </div>
       </section>
 
-      <section class="section" id="community">
+      <section class="section section--alt" id="bot-guide">
         <div class="section__header">
-          <p class="tag">Community Pulse</p>
-          <h2>Builders, operators, and co-conspirators.</h2>
-          <p>Live stats from the Yeko Discord + partner pods.</p>
+          <p class="tag">How-To</p>
+          <h2>Build your own OpenClaw bot.</h2>
+          <p>Exact walkthrough I use when spinning up assistants like Mainframe. View source, follow along, or co-build inside the Discord.</p>
         </div>
-        <div class="community-grid">
-          <div class="community-card" data-spark>
-            <p class="community-card__value">312</p>
-            <p class="community-card__label">Active Members</p>
-            <p class="community-card__hint">38 currently in co-work mode</p>
-          </div>
-          <div class="community-card" data-spark>
-            <p class="community-card__value">27</p>
-            <p class="community-card__label">Live Threads</p>
-            <p class="community-card__hint">Ops, AI, design, IRL</p>
-          </div>
-          <div class="community-card" data-spark>
-            <p class="community-card__value">6</p>
-            <p class="community-card__label">Open Collaborations</p>
-            <p class="community-card__hint">Seeking signal boosters</p>
-          </div>
+        <div class="purpose-grid">
+          <article class="purpose-card">
+            <p class="tag">1. Bootstrap</p>
+            <h3>Install OpenClaw locally.</h3>
+            <p>Grab the CLI, run <code>openclaw configure</code>, and point it to your workspace. This sets up auth, models, and agents.</p>
+          </article>
+          <article class="purpose-card">
+            <p class="tag">2. Wire tools</p>
+            <h3>Add skills + hooks.</h3>
+            <p>Connect Discord, Gmail, or anything else via hooks, skills, and the `message` tool so the bot can see + act.</p>
+          </article>
+          <article class="purpose-card">
+            <p class="tag">3. Ship</p>
+            <h3>Test, approve, automate.</h3>
+            <p>Use exec approvals, heartbeats, and cron jobs to keep control. Every workflow is review-before-send by default.</p>
+          </article>
+        </div>
+        <div class="hero__actions" style="margin-top:2rem;">
+          <a class="btn primary" href="https://discord.gg/yekolab" target="_blank" rel="noopener">Open the tutorial thread</a>
+          <a class="btn ghost" href="https://docs.openclaw.ai" target="_blank" rel="noopener">Read the OpenClaw docs</a>
         </div>
       </section>
 
