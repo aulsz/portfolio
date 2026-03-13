@@ -1,159 +1,13 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Yeko • AI Systems + ESET</title>
+    <title>Landing Page</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
-    <style>
-      :root {
-        font-family: "Space Grotesk", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-        color-scheme: dark;
-        --bg: #04050a;
-        --fg: #f4f6ff;
-        --muted: #a2b0d9;
-        --accent: #49ffe0;
-        --accent-2: #4ca3ff;
-        --accent-3: #c26eff;
-        --border: rgba(255, 255, 255, 0.08);
-      }
-      * { box-sizing: border-box; }
-      body {
-        margin: 0;
-        min-height: 100vh;
-        background: radial-gradient(circle at top, rgba(20, 40, 100, 0.3), transparent 60%), var(--bg);
-        color: var(--fg);
-        overflow-x: hidden;
-      }
-      a { color: var(--fg); text-decoration: none; }
-      .ambient {
-        position: fixed; inset: 0; overflow: hidden; pointer-events: none; z-index: 0;
-      }
-      .orb {
-        position: absolute; width: 420px; height: 420px;
-        background: radial-gradient(circle, rgba(60, 255, 208, 0.35), transparent 70%);
-        filter: blur(30px); animation: float 18s ease-in-out infinite;
-      }
-      .orb--one { top: -80px; left: -80px; }
-      .orb--two { bottom: -120px; right: -60px; animation-duration: 22s; }
-      .orb--three { top: 40%; right: 20%; animation-duration: 26s; background: radial-gradient(circle, rgba(99, 71, 255, 0.4), transparent 70%); }
-      @keyframes float { 0% { transform: translate3d(0,0,0);} 50% { transform: translate3d(30px,-20px,0);} 100% { transform: translate3d(0,0,0);} }
-      .noise {
-        position: fixed; inset: 0;
-        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300' viewBox='0 0 300 300'%3E%3Crect width='300' height='300' fill='rgba(0,0,0,0)'/%3E%3Ccircle cx='10' cy='10' r='1' fill='rgba(255,255,255,0.03)'/%3E%3C/svg%3E");
-        opacity: 0.35; mix-blend-mode: screen; pointer-events: none; z-index: 0;
-      }
-      .hero { position: relative; z-index: 1; padding: 2.5rem clamp(1.5rem,5vw,4rem) 4rem; }
-      .nav { display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
-      .logo { display: flex; align-items: center; gap: 1rem; }
-      .logo__mark {
-        width: 48px; height: 48px; border-radius: 16px;
-        background: linear-gradient(135deg, var(--accent-2), var(--accent));
-        display: grid; place-items: center; font-weight: 700;
-      }
-      .logo__subtitle { color: var(--muted); margin: 0; font-size: 0.85rem; }
-      .nav__links { display: flex; gap: 1rem; align-items: center; }
-      .nav__links a { font-weight: 500; opacity: 0.85; }
-      .nav__links .pill { border: 1px solid var(--border); padding: 0.4rem 1rem; border-radius: 999px; transition: border-color 0.3s; }
-      .nav__links .pill:hover { border-color: var(--accent); }
-      .hero__content { margin-top: 4rem; display: grid; grid-template-columns: repeat(auto-fit,minmax(280px,1fr)); gap: 2rem; }
-      .tag { text-transform: uppercase; letter-spacing: 0.2em; font-size: 0.75rem; color: var(--accent); }
-      .hero h1 { font-size: clamp(2.8rem,6vw,4.4rem); line-height: 1.1; margin: 0.8rem 0 1rem; }
-      .hero h1 span { color: var(--accent-2); }
-      .lede { color: var(--muted); font-size: 1.1rem; max-width: 52ch; }
-      .hero__note { color: rgba(244,246,255,0.75); margin-top: 0.8rem; }
-      .hero__actions { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 1.5rem; }
-      .btn { display: inline-flex; align-items: center; justify-content: center; padding: 0.8rem 1.6rem; border-radius: 999px; font-weight: 600; border: 1px solid transparent; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
-      .btn.primary { background: linear-gradient(120deg, var(--accent-2), var(--accent)); color: #020205; box-shadow: 0 15px 45px rgba(73,255,224,0.25); }
-      .btn.ghost { border-color: var(--border); color: var(--fg); }
-      .btn:hover { transform: translateY(-3px); }
-      .metric-card { background: rgba(7,10,20,0.8); border: 1px solid var(--border); padding: 1.5rem; border-radius: 22px; backdrop-filter: blur(16px); box-shadow: 0 20px 60px rgba(0,0,0,0.4); }
-      .metric-card__label { opacity: 0.7; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 0.2em; }
-      .metric-card__value { font-size: 2.8rem; margin: 0.5rem 0; }
-      .metric-card__hint { color: var(--muted); font-size: 0.9rem; }
-      main { position: relative; z-index: 1; }
-      .section { padding: 4rem clamp(1.5rem,5vw,4rem); }
-      .section--alt { background: rgba(4,6,12,0.7); }
-      .section__header { max-width: 720px; margin-bottom: 2.5rem; }
-      .section__header h2 { font-size: clamp(2rem,4vw,3rem); margin: 0.4rem 0 0.6rem; }
-      .purpose-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(240px,1fr)); gap: 1.5rem; }
-      .purpose-card {
-        padding: 1.5rem; border-radius: 24px; border: 1px solid var(--border);
-        background: rgba(10,14,25,0.85); box-shadow: inset 0 0 0 1px rgba(255,255,255,0.02);
-      }
-      .purpose-card h3 { margin-top: 0.4rem; }
-      .purpose-card ul { margin: 1rem 0 0; padding-left: 1.2rem; color: var(--muted); }
-      .case-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(280px,1fr)); gap: 1.5rem; }
-      .case {
-        padding: 1.75rem; border-radius: 26px; background: rgba(10,14,25,0.8);
-        border: 1px solid var(--border); min-height: 340px; display: flex; flex-direction: column; gap: 0.9rem;
-        transition: transform 0.4s ease, border-color 0.2s ease; transform-style: preserve-3d;
-      }
-      .case:hover { border-color: rgba(73,255,224,0.4); transform: translateY(-8px); }
-      .case__meta { display: flex; justify-content: space-between; font-size: 0.85rem; color: var(--muted); }
-      .case ul { padding-left: 1.2rem; margin: 0; color: var(--muted); }
-      .section--alt .timeline { display: grid; gap: 1.5rem; }
-      .timeline__item { padding: 1.5rem; border-radius: 22px; border: 1px solid var(--border); background: rgba(8,12,22,0.8); box-shadow: inset 0 0 0 1px rgba(255,255,255,0.02); }
-      .timeline__label { color: var(--accent-3); font-size: 0.8rem; letter-spacing: 0.2em; text-transform: uppercase; }
-      .chip { margin-top: 1rem; padding: 0.5rem 1.2rem; border-radius: 999px; border: none; background: rgba(255,255,255,0.08); color: var(--fg); font-weight: 600; cursor: pointer; transition: background 0.3s; }
-      .chip:hover { background: rgba(73,255,224,0.2); }
-      .section--highlight { background: rgba(5,7,12,0.8); border-top: 1px solid rgba(255,255,255,0.04); border-bottom: 1px solid rgba(255,255,255,0.04); }
-      .discord-card {
-        display: grid; grid-template-columns: minmax(200px, 280px) 1fr; gap: 2rem;
-        padding: 2rem; border-radius: 32px; border: 1px solid var(--border);
-        background: rgba(9,12,25,0.8); box-shadow: 0 30px 60px rgba(0,0,0,0.35);
-      }
-      .discord-card__badge {
-        width: 100%; aspect-ratio: 1/1; border-radius: 26px;
-        background: rgba(4,6,12,0.9);
-        display: grid; place-items: center; border: 1px solid rgba(255,255,255,0.04);
-      }
-      .discord-card__body h2 { margin: 0.4rem 0 0.6rem; }
-      .discord-list { list-style: none; padding: 0; margin: 1.5rem 0; display: flex; flex-wrap: wrap; gap: 0.8rem; }
-      .discord-list li {
-        padding: 0.4rem 0.9rem; border-radius: 999px;
-        background: rgba(255,255,255,0.08); font-size: 0.9rem;
-      }
-      .discord-link {
-        display: inline-flex; align-items: center; gap: 0.8rem;
-        padding: 0.85rem 1.5rem; border-radius: 999px;
-        border: 1px solid rgba(73,255,224,0.4);
-        background: rgba(73,255,224,0.1);
-        font-weight: 600; transition: transform 0.2s, border-color 0.2s;
-      }
-      .discord-link:hover { transform: translateY(-3px); border-color: rgba(73,255,224,0.9); }
-      .discord-link__icon { width: 42px; height: 42px; border-radius: 14px; overflow: hidden; }
-      .community-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(220px,1fr)); gap: 1.2rem; }
-      .community-card {
-        padding: 2rem 1.5rem; border-radius: 22px; border: 1px solid var(--border);
-        background: rgba(5,10,20,0.85); text-align: center; position: relative; overflow: hidden;
-      }
-      .community-card::after { content: ""; position: absolute; inset: 1px; border-radius: inherit; background: radial-gradient(circle, rgba(73,255,224,0.1), transparent 70%); opacity: 0; transition: opacity 0.4s; }
-      .community-card:hover::after { opacity: 1; }
-      .community-card__value { font-size: 3rem; margin: 0.5rem 0; }
-      .community-card__label { text-transform: uppercase; font-size: 0.75rem; letter-spacing: 0.3em; color: var(--muted); }
-      .section--cta { padding-bottom: 6rem; }
-      .cta { display: grid; grid-template-columns: repeat(auto-fit,minmax(280px,1fr)); gap: 2rem; align-items: center; }
-      .cta__card { padding: 1.8rem; border-radius: 26px; border: 1px solid var(--border); background: rgba(8,12,25,0.85); }
-      .cta__title { font-size: 0.85rem; letter-spacing: 0.2em; color: var(--accent-2); }
-      .cta__card ul { list-style: none; padding: 0; margin: 1rem 0 0; display: flex; flex-direction: column; gap: 0.6rem; color: var(--muted); }
-      .cta__footer { margin-top: 1.2rem; color: var(--fg); font-weight: 600; }
-      .footer { text-align: center; padding: 2rem; color: var(--muted); font-size: 0.9rem; border-top: 1px solid rgba(255,255,255,0.05); }
-      [data-reveal] { opacity: 0; transform: translateY(20px); transition: opacity 0.8s ease, transform 0.8s ease; }
-      [data-reveal].is-visible { opacity: 1; transform: translateY(0); }
-      @media (max-width: 900px) { .discord-card { grid-template-columns: 1fr; } }
-      @media (max-width: 720px) {
-        .nav__links { flex-wrap: wrap; justify-content: flex-end; }
-        .hero { padding-top: 1.5rem; }
-        .hero__content { margin-top: 2rem; }
-        .case { min-height: 0; }
-      }
-    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <div class="ambient">
@@ -162,414 +16,165 @@
       <span class="orb orb--three"></span>
     </div>
     <div class="noise"></div>
+
     <header class="hero" id="top">
       <nav class="nav">
         <div class="logo">
-          <span class="logo__mark">YL</span>
+          <span class="logo__mark" aria-label="Server logo">
+  <svg viewBox="0 0 100 100" width="48" height="48" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true">
+    <defs>
+      <linearGradient id="ringGrad" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#FF5DB1"/>
+        <stop offset="100%" stop-color="#FFD27A"/>
+      </linearGradient>
+    </defs>
+    <circle cx="50" cy="50" r="33" fill="none" stroke="url(#ringGrad)" stroke-width="14"/>
+    <path d="M47 76 L53 76 L50 88 Z" fill="#FFD27A"/>
+  </svg>
+</span>
           <div>
             <p class="logo__title">Yeko Lab</p>
-            <p class="logo__subtitle">Systems • Strategy • Story</p>
+            <p class="logo__subtitle">Engineering â€¢ AI Ops â€¢ Systems</p>
           </div>
         </div>
         <div class="nav__links">
-          <a href="#about">About</a>
-          <a href="#work">Work</a>
-          <a href="#focus">Focus</a>
-          <a href="#discord">Discord</a>
-          <a href="https://www.linkedin.com/in/collinsculbert/" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="#work">Projects</a>
+          <a href="#knowledge">Architecture</a>
+          <a href="#community">Community</a>
           <a href="#contact" class="pill">Contact</a>
         </div>
       </nav>
+
       <div class="hero__content">
         <div>
-          <p class="tag">Summer 2026 Intern Signal</p>
-          <h1>
-            Electrical & Systems Engineering Technology sophomore building <span>agentic AI + flight-ready electronics</span>.
-          </h1>
+          <p class="tag">Engineering-first portfolio</p>
+          <h1>Production-minded builds for <span>AI and systems engineers.</span></h1>
           <p class="lede">
-            Dallas-based (remote or housing-provided relocations only). I pair ML automation with embedded builds so ops, avionics, and lab work stay observable and documented.
-          </p>
-          <p class="hero__note">
-            Current focus: the Mainframe Discord AI stack that runs this lab + projects for my Google Machine Learning certification—everything built with native web + GitHub Actions so you can inspect the wiring.
+            I design and ship practical AI systems with observability, guardrails,
+            and measurable outcomes. This page is for engineers who care about architecture,
+            reliability, and execution speed.
           </p>
           <div class="hero__actions">
-            <a class="btn primary" href="#work">See the builds</a>
-            <a class="btn ghost" href="https://github.com/aulsz" target="_blank" rel="noopener">GitHub</a>
-            <a class="btn ghost" href="https://www.linkedin.com/in/collinsculbert/" target="_blank" rel="noopener">LinkedIn</a>
+            <a class="btn primary" href="#work">See technical builds</a>
+            <a class="btn ghost" href="#knowledge">Read architecture notes</a>
           </div>
         </div>
         <div class="hero__metrics">
-          <div class="metric-card" data-reveal>
-            <p class="metric-card__label">Agentic Pipelines</p>
-            <p class="metric-card__value">2</p>
-            <p class="metric-card__hint">Mainframe Discord AI + cold email autopilot</p>
+          <div class="metric-card">
+            <p class="metric-card__label">Systems Shipped</p>
+            <p class="metric-card__value">19</p>
+            <p class="metric-card__hint">AI-first production workflows</p>
           </div>
-          <div class="metric-card" data-reveal>
-            <p class="metric-card__label">ESET Track</p>
-            <p class="metric-card__value">Sophomore</p>
-            <p class="metric-card__hint">Electrical & Systems Engineering Technology major in Dallas</p>
+          <div class="metric-card">
+            <p class="metric-card__label">Median Time to Value</p>
+            <p class="metric-card__value">14d</p>
+            <p class="metric-card__hint">From prototype to measurable utility</p>
           </div>
-          <div class="metric-card" data-reveal>
-            <p class="metric-card__label">Response Compression</p>
-            <p class="metric-card__value">→46m</p>
-            <p class="metric-card__hint">Support desk workflow tuned with LLM guardrails</p>
+          <div class="metric-card">
+            <p class="metric-card__label">Reliability Focus</p>
+            <p class="metric-card__value">99%</p>
+            <p class="metric-card__hint">Retry/fallback patterns included</p>
           </div>
         </div>
       </div>
     </header>
 
     <main>
-      <section class="section section--purpose" id="about">
-        <div class="section__header">
-          <p class="tag">Why this exists</p>
-          <h2>Your briefing on my Summer 2026 ML + EE hunt.</h2>
-          <p>I’m pairing agentic AI systems with ESET lab work so recruiters can see the signal fast—how I design, automate, and document hardware-adjacent workflows.</p>
-        </div>
-        <div class="purpose-grid">
-          <article class="purpose-card" data-tilt>
-            <p class="tag">Site Purpose</p>
-            <h3>Instant context for hiring teams.</h3>
-            <p>
-              Everything here is what I’d want a lead engineer to know: who I am, what systems I’ve shipped, and how I document the guts so it’s repeatable.
-            </p>
-            <ul>
-              <li>Agentic AI + electrical focus</li>
-              <li>Project links + repos</li>
-              <li>Availability + logistics</li>
-            </ul>
-          </article>
-          <article class="purpose-card" data-tilt>
-            <p class="tag">Native Stack</p>
-            <h3>Pure HTML • CSS • JS.</h3>
-            <p>
-              No frameworks, no heavy libs—just performant native code with custom motion, glassmorphism, and responsive layouts so you can view-source and audit the work.
-            </p>
-            <ul>
-              <li>Custom tilt + spark animations</li>
-              <li>Intersection-based reveals</li>
-              <li>Editable sections for future drops</li>
-            </ul>
-          </article>
-          <article class="purpose-card" data-tilt>
-            <p class="tag">Logistics</p>
-            <h3>Dallas-based, ready to travel.</h3>
-            <p>
-              Local to DFW. Remote work is ideal; on-site is a yes if housing is covered. I plan travel around lab schedules so there’s zero ambiguity on availability.
-            </p>
-            <ul>
-              <li>Summer 2026 availability</li>
-              <li>Flexible start (May–Aug)</li>
-              <li>Weekend prototyping hours</li>
-            </ul>
-          </article>
-        </div>
-      </section>
-
       <section class="section" id="work">
         <div class="section__header">
-          <p class="tag">Featured Case Studies</p>
-          <h2>Proof-of-work meets playful polish.</h2>
-          <p>Hover / tap cards for live context, micro-interactions, and quick stats.</p>
+          <p class="tag">Project Highlights</p>
+          <h2>Built like products, not demos.</h2>
+          <p>Each project includes architecture, failure handling, and operational results.</p>
         </div>
         <div class="case-grid">
           <article class="case" data-tilt>
-            <div class="case__meta">
-              <p class="case__tag">Agentic Ops</p>
-              <p class="case__year">2026</p>
-            </div>
-            <h3>Mainframe Ops AI</h3>
-            <p>The Discord-native assistant that runs this lab: it watches threads, manages memory, and routes tasks through OpenClaw so nothing ships without review.</p>
-            <ul>
-              <li>Multi-tool orchestration + safety rails</li>
-              <li>Heartbeat tasks + status dashboards</li>
-              <li>Human-in-the-loop approvals for external actions</li>
-            </ul>
+            <div class="case__meta"><p class="case__tag">AI Orchestration</p><p class="case__year">2026</p></div>
+            <h3>Discord Agent Control Plane</h3>
+            <p>Multi-job automation with watchdogs, fallback channels, and daily operational briefs.</p>
+            <ul><li>Cron-based autonomous flows</li><li>Guarded restart logic</li><li>Channel-specific routing</li></ul>
           </article>
           <article class="case" data-tilt>
-            <div class="case__meta">
-              <p class="case__tag">Automation</p>
-              <p class="case__year">2026</p>
-            </div>
-            <h3>Cold Outreach Autopilot</h3>
-            <p>Company research + drafting stack for Summer 2026 internships. It scrapes roles, builds briefs, and drafts personalized emails that I review before release.</p>
-            <ul>
-              <li>Lead database + tagging (AI/EE/rocketry)</li>
-              <li>Template engine referencing this site + repo links</li>
-              <li>Manual approval + send logging</li>
-            </ul>
+            <div class="case__meta"><p class="case__tag">Student Ops</p><p class="case__year">2026</p></div>
+            <h3>Canvas Deadline Intelligence</h3>
+            <p>ICS-based assignment ingestion with due-soon alerting and digest generation for execution speed.</p>
+            <ul><li>No paid APIs required</li><li>Time-zone aware reminders</li><li>Urgent window checks</li></ul>
           </article>
           <article class="case" data-tilt>
-            <div class="case__meta">
-              <p class="case__tag">ESET Lab</p>
-              <p class="case__year">2025–ongoing</p>
-            </div>
-            <h3>Signal Cart Notebook</h3>
-            <p>A living log of my electronics + controls labs: sensor calibration rigs, embedded test harnesses, and prep work for rocketry avionics internships.</p>
-            <ul>
-              <li>Embedded lab builds (power, sensor, RF modules)</li>
-              <li>Measurement + calibration procedures</li>
-              <li>Lessons-learned library for flight computer teams</li>
-            </ul>
-          </article>
-        </div>
-      </section>
-
-      <section class="section section--alt" id="focus">
-        <div class="section__header">
-          <p class="tag">Focus</p>
-          <h2>Where I create leverage.</h2>
-          <p>AI workflows, hardware labs, and the connective tissue that keeps ops auditable.</p>
-        </div>
-        <div class="purpose-grid">
-          <article class="purpose-card" data-tilt>
-            <p class="tag">Agentic AI</p>
-            <h3>Workflow brains that stay coachable.</h3>
-            <p>
-              I design assistants that summarize signal, propose actions, and wait for human approval. Tools: OpenClaw, Claude/GPT, GitHub Actions, and Discord automation.
-            </p>
-            <ul>
-              <li>Discord + email orchestration</li>
-              <li>Memory + retrieval design</li>
-              <li>Safety interlocks</li>
-            </ul>
-          </article>
-          <article class="purpose-card" data-tilt>
-            <p class="tag">Electrical & Embedded</p>
-            <h3>ESET coursework + lab hardware.</h3>
-            <p>
-              Breadboards to PCB bring-up: power electronics, instrumentation, RF basics, and Python tooling for measurement + test automation.
-            </p>
-            <ul>
-              <li>Embedded + instrumentation labs</li>
-              <li>Power, RF, and controls fundamentals</li>
-              <li>Documentation-first lab notebooks</li>
-            </ul>
-          </article>
-          <article class="purpose-card" data-tilt>
-            <p class="tag">Rocketry / Flight</p>
-            <h3>Preparing for avionics internships.</h3>
-            <p>
-              Building telemetry dashboards and fault trees so I can support propulsion, GNC, or test teams. Currently mapping Dallas-based aerospace targets.
-            </p>
-            <ul>
-              <li>SpaceX, Lockheed, Bell, Raytheon</li>
-              <li>Sensor fusion notebooks</li>
-              <li>Cold-email briefing packs</li>
-            </ul>
+            <div class="case__meta"><p class="case__tag">Research Infra</p><p class="case__year">2026</p></div>
+            <h3>Triangulated Intelligence Briefing</h3>
+            <p>Daily lead generation + multi-source validation with confidence scoring for decision quality.</p>
+            <ul><li>Source triangulation</li><li>Structured summaries</li><li>Action-first outputs</li></ul>
           </article>
         </div>
       </section>
 
       <section class="section section--alt" id="knowledge">
         <div class="section__header">
-          <p class="tag">Knowledge Vault</p>
-          <h2>Living playbooks and field notes.</h2>
-          <p>Indexed, versioned, and open to collaborators.</p>
+          <p class="tag">Architecture Notes</p>
+          <h2>How the systems are designed.</h2>
+          <p>Design choices, tradeoffs, and reliability patterns behind each build.</p>
         </div>
         <div class="timeline">
-          <article class="timeline__item">
-            <p class="timeline__label">Latest Drop</p>
-            <h3>Signal Choreography 101</h3>
-            <p>How to orchestrate multi-agent comms without burning trust.</p>
-            <a class="chip" href="#bot-guide">How to build</a>
-          </article>
-          <article class="timeline__item">
-            <p class="timeline__label">Playbook</p>
-            <h3>Zero-Noise Community Launch</h3>
-            <p>Template + automation pack for spinning up curated spaces.</p>
-            <a class="chip" href="#bot-guide">How to build</a>
-          </article>
-          <article class="timeline__item">
-            <p class="timeline__label">Notebook</p>
-            <h3>LLM QA Stress Tests</h3>
-            <p>Benchmarks, failure libraries, and recovery patterns.</p>
-            <a class="chip" href="#bot-guide">How to build</a>
-          </article>
+          <article class="timeline__item"><p class="timeline__label">Pattern</p><h3>Guarded Autonomy</h3><p>Automate aggressively, but gate risky actions and avoid failure loops.</p><button class="chip">Read pattern</button></article>
+          <article class="timeline__item"><p class="timeline__label">Pattern</p><h3>Signal Over Noise</h3><p>Triangulate sources and output concise, high-confidence recommendations.</p><button class="chip">Read pattern</button></article>
+          <article class="timeline__item"><p class="timeline__label">Pattern</p><h3>Recovery by Default</h3><p>Nightly backups + recovery drills to reduce operational fragility.</p><button class="chip">Read pattern</button></article>
         </div>
       </section>
 
-      <section class="section section--highlight" id="discord">
+      <section class="section" id="community">
         <div class="section__header">
-          <p class="tag">Discord HQ</p>
-          <h2>Where the lab actually lives.</h2>
-          <p>Work-in-progress drops, office hours, and collaboration briefs happen inside the Discord.</p>
+          <p class="tag">Engineer Community</p>
+          <h2>Builders sharing what actually works.</h2>
+          <p>Practical discussions around AI ops, deployment discipline, and reliability.</p>
         </div>
-        <div class="discord-card" data-tilt>
-          <div class="discord-card__badge">
-            <svg viewBox="0 0 1024 1024" width="180" height="180" xmlns="http://www.w3.org/2000/svg">
-              <defs>
-                <linearGradient id="logo-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stop-color="#34ffb8" />
-                  <stop offset="50%" stop-color="#32b9ff" />
-                  <stop offset="100%" stop-color="#a448ff" />
-                </linearGradient>
-              </defs>
-              <rect width="1024" height="1024" rx="220" fill="#04050a" />
-              <circle cx="512" cy="512" r="360" stroke="#1b6bff" stroke-width="18" fill="none" opacity="0.6" />
-              <path d="M512 240 L330 520 C310 550 310 590 330 620 L380 690" fill="none" stroke="url(#logo-grad)" stroke-width="60" stroke-linecap="round" stroke-linejoin="round" />
-              <path d="M512 240 L694 520 C714 550 714 590 694 620 L644 690" fill="none" stroke="url(#logo-grad)" stroke-width="60" stroke-linecap="round" stroke-linejoin="round" />
-              <path d="M512 512 L512 804" fill="none" stroke="url(#logo-grad)" stroke-width="60" stroke-linecap="round" />
-            </svg>
-          </div>
-          <div class="discord-card__body">
-            <p class="tag">Join the conversation</p>
-            <h2>Yeko Lab Discord</h2>
-            <p>
-              A curated tech-savvy portfolio community for sharing intelligent AI workflows, showcasing experiments, and co-building ops with other high-signal folks.
-            </p>
-            <ul class="discord-list">
-              <li>🧪 Live build-alongs</li>
-              <li>📁 Portfolio teardown threads</li>
-              <li>🤝 Collaboration briefs</li>
-              <li>🧠 AI workflow critiques</li>
-            </ul>
-            <a class="discord-link" href="https://discord.gg/S5xJVZpS" target="_blank" rel="noopener">
-              <span class="discord-link__icon">
-                <img src="data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1024 1024'%3E%3Cdefs%3E%3ClinearGradient id='mini' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%2334ffb8'/%3E%3Cstop offset='50%25' stop-color='%2332b9ff'/%3E%3Cstop offset='100%25' stop-color='%23a448ff'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='1024' height='1024' rx='220' fill='%2304050a'/%3E%3Cpath d='M512 200 L320 500 Q300 540 320 580 L380 670' fill='none' stroke='url(%23mini)' stroke-width='80' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M512 200 L704 500 Q724 540 704 580 L644 670' fill='none' stroke='url(%23mini)' stroke-width='80' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M512 460 L512 820' fill='none' stroke='url(%23mini)' stroke-width='80' stroke-linecap='round'/%3E%3C/svg%3E" alt="Yeko Lab Logo" width="42" height="42" />
-              </span>
-              <span>Enter the Lab</span>
-            </a>
-          </div>
-        </div>
-      </section>
-
-      <section class="section section--alt" id="bot-guide">
-        <div class="section__header">
-          <p class="tag">How-To</p>
-          <h2>Build your own OpenClaw bot.</h2>
-          <p>Exact walkthrough I use when spinning up assistants like Mainframe. View source, follow along, or co-build inside the Discord.</p>
-        </div>
-        <div class="purpose-grid">
-          <article class="purpose-card">
-            <p class="tag">1. Bootstrap</p>
-            <h3>Install OpenClaw locally.</h3>
-            <p>Grab the CLI, run <code>openclaw configure</code>, and point it to your workspace. This sets up auth, models, and agents.</p>
-          </article>
-          <article class="purpose-card">
-            <p class="tag">2. Wire tools</p>
-            <h3>Add skills + hooks.</h3>
-            <p>Connect Discord, Gmail, or anything else via hooks, skills, and the `message` tool so the bot can see + act.</p>
-          </article>
-          <article class="purpose-card">
-            <p class="tag">3. Ship</p>
-            <h3>Test, approve, automate.</h3>
-            <p>Use exec approvals, heartbeats, and cron jobs to keep control. Every workflow is review-before-send by default.</p>
-          </article>
-        </div>
-        <div class="hero__actions" style="margin-top:2rem;">
-          <a class="btn primary" href="https://discord.gg/S5xJVZpS" target="_blank" rel="noopener">Open the tutorial thread</a>
-          <a class="btn ghost" href="https://docs.openclaw.ai" target="_blank" rel="noopener">Read the OpenClaw docs</a>
+        <div class="community-grid">
+          <div class="community-card" data-spark><p class="community-card__value">312</p><p class="community-card__label">Active Members</p><p class="community-card__hint">Operators, engineers, founders</p></div>
+          <div class="community-card" data-spark><p class="community-card__value">27</p><p class="community-card__label">Live Threads</p><p class="community-card__hint">Architecture, alerts, and playbooks</p></div>
+          <div class="community-card" data-spark><p class="community-card__value">6</p><p class="community-card__label">Open Collaborations</p><p class="community-card__hint">Looking for strong execution partners</p></div>
         </div>
       </section>
 
       <section class="section section--cta" id="contact">
         <div class="cta">
           <div>
-            <p class="tag">Contact</p>
-            <h2>Let’s talk Summer 2026.</h2>
-            <p>Machine learning, electrical, avionics, or systems internships. Remote preferred; Dallas relocation is easy if housing is covered.</p>
+            <p class="tag">Letâ€™s Build</p>
+            <h2>Need an engineering-grade AI workflow?</h2>
+            <p>Reach out with your constraints, stack, and desired outcomes.</p>
             <div class="hero__actions">
-              <a class="btn primary" href="#contact-modal" id="contact-trigger">Email me</a>
-              <a class="btn ghost" href="https://discord.gg/S5xJVZpS" target="_blank" rel="noopener">Ping me on Discord</a>
-              <a class="btn ghost" href="https://www.linkedin.com/in/collinsculbert/" target="_blank" rel="noopener">LinkedIn</a>
+              <a class="btn primary" href="mailto:hello@yeko.studio">Start a technical brief</a>
+              <a class="btn ghost" href="#top">Back to top</a>
             </div>
           </div>
           <div class="cta__card" data-tilt>
-            <p class="cta__title">What I bring</p>
+            <p class="cta__title">Engagement Scope</p>
             <ul>
-              <li>⚙️ Agentic AI pipelines with approvals</li>
-              <li>🔧 ESET lab experience (embedded + instrumentation)</li>
-              <li>🚀 Rocketry + avionics research track</li>
-              <li>🗒️ Documentation-first mindset</li>
+              <li>âš™ï¸ System architecture + guardrails</li>
+              <li>ðŸ“Š Observability and health reporting</li>
+              <li>ðŸ” Automation + failure recovery</li>
+              <li>ðŸ§ª Pilot-to-production acceleration</li>
             </ul>
-            <p class="cta__footer">Available May–August 2026 (flexible start).</p>
+            <p class="cta__footer">Clear milestones, measurable outcomes.</p>
           </div>
         </div>
       </section>
     </main>
 
-    <!-- Contact Modal -->
-    <div id="contact-modal" style="display:none;position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,0.7);backdrop-filter:blur(8px);align-items:center;justify-content:center;">
-      <div style="background:#0a0d1a;border:1px solid rgba(255,255,255,0.1);border-radius:28px;padding:2.5rem;max-width:480px;width:90%;position:relative;box-shadow:0 40px 80px rgba(0,0,0,0.6);">
-        <button id="close-modal" style="position:absolute;top:1rem;right:1.2rem;background:none;border:none;color:rgba(255,255,255,0.5);font-size:1.4rem;cursor:pointer;line-height:1;">✕</button>
-        <p style="text-transform:uppercase;letter-spacing:.2em;font-size:.75rem;color:#49ffe0;margin:0 0 .5rem;">Get in touch</p>
-        <h3 style="margin:0 0 .5rem;font-size:1.4rem;">Send me a note</h3>
-        <p style="color:#a2b0d9;font-size:.9rem;margin:0 0 1.5rem;">Summer 2026 internship inquiries, collaborations, or just saying hi — I read everything.</p>
-        <label style="display:block;font-size:.85rem;margin-bottom:.3rem;color:#a2b0d9;">Your message</label>
-        <textarea id="contact-body" rows="5" placeholder="Hi Collins, I came across your portfolio and..." style="width:100%;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:14px;color:#f4f6ff;padding:.9rem 1rem;font-family:inherit;font-size:.95rem;resize:vertical;box-sizing:border-box;"></textarea>
-        <a id="contact-send" href="#" class="btn primary" style="margin-top:1.2rem;display:inline-flex;text-decoration:none;">Open in mail app →</a>
-        <p style="margin-top:.8rem;font-size:.8rem;color:rgba(162,176,217,.6);">Or email directly: <a href="mailto:coculbert@icloud.com" style="color:#49ffe0;">coculbert@icloud.com</a></p>
-      </div>
-    </div>
-
     <footer class="footer">
-      <p>© <span id="year"></span> Yeko Lab. Built with native HTML, CSS, and a sprinkle of JS.</p>
-      <p>Purpose: brief you on my AI + ESET work for Summer 2026 internships.</p>
+      <p>Â© <span id="year"></span> Yeko Lab.</p>
+      <p>Public engineering portfolio. Private ops are isolated.</p>
     </footer>
 
+    <script src="script.js"></script>
     <script>
-      const year = document.getElementById("year");
-      if (year) year.textContent = new Date().getFullYear();
-
-      const revealTargets = document.querySelectorAll(
-        ".case, .timeline__item, .community-card, .cta__card, .metric-card, .purpose-card, .discord-card"
-      );
-      revealTargets.forEach((el) => el.setAttribute("data-reveal", ""));
-
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              entry.target.classList.add("is-visible");
-              observer.unobserve(entry.target);
-            }
-          });
-        },
-        { threshold: 0.3 }
-      );
-      revealTargets.forEach((el) => observer.observe(el));
-
-      const tiltCards = document.querySelectorAll("[data-tilt]");
-      tiltCards.forEach((card) => {
-        card.addEventListener("mousemove", (event) => {
-          const bounds = card.getBoundingClientRect();
-          const x = ((event.clientX - bounds.left) / bounds.width - 0.5) * 20;
-          const y = ((event.clientY - bounds.top) / bounds.height - 0.5) * -20;
-          card.style.transform = `perspective(900px) rotateX(${y}deg) rotateY(${x}deg)`;
+      // Owner shortcut: double-click logo to open private Mission Control.
+      const logoMark = document.querySelector('.logo__mark');
+      if (logoMark) {
+        logoMark.title = 'Owner shortcut enabled';
+        logoMark.addEventListener('dblclick', () => {
+          window.location.href = 'mission-control.html';
         });
-        card.addEventListener("mouseleave", () => {
-          card.style.transform = "perspective(900px) rotateX(0deg) rotateY(0deg)";
-        });
-      });
-
-      // Contact modal
-      const modal = document.getElementById("contact-modal");
-      const trigger = document.getElementById("contact-trigger");
-      const closeBtn = document.getElementById("close-modal");
-      const sendBtn = document.getElementById("contact-send");
-      const bodyField = document.getElementById("contact-body");
-      if (trigger) trigger.addEventListener("click", (e) => { e.preventDefault(); modal.style.display = "flex"; });
-      if (closeBtn) closeBtn.addEventListener("click", () => { modal.style.display = "none"; });
-      if (modal) modal.addEventListener("click", (e) => { if (e.target === modal) modal.style.display = "none"; });
-      if (sendBtn) sendBtn.addEventListener("click", (e) => {
-        e.preventDefault();
-        const body = encodeURIComponent(bodyField ? bodyField.value : "");
-        window.location.href = "mailto:coculbert@icloud.com?subject=Internship%20Inquiry&body=" + body;
-      });
-
-      const sparkCards = document.querySelectorAll("[data-spark]");
-      setInterval(() => {
-        const card = sparkCards[Math.floor(Math.random() * sparkCards.length)];
-        if (!card) return;
-        card.animate(
-          [
-            { boxShadow: "0 0 0 rgba(73,255,224,0)" },
-            { boxShadow: "0 0 30px rgba(73,255,224,0.35)" },
-            { boxShadow: "0 0 0 rgba(73,255,224,0)" },
-          ],
-          { duration: 2200, easing: "ease-out" }
-        );
-      }, 2600);
+      }
     </script>
   </body>
 </html>
+
