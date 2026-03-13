@@ -423,7 +423,7 @@
               <li>🤝 Collaboration briefs</li>
               <li>🧠 AI workflow critiques</li>
             </ul>
-            <a class="discord-link" href="https://discord.gg/yekolab" target="_blank" rel="noopener">
+            <a class="discord-link" href="https://discord.gg/S5xJVZpS" target="_blank" rel="noopener">
               <span class="discord-link__icon">
                 <img src="data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1024 1024'%3E%3Cdefs%3E%3ClinearGradient id='mini' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%2334ffb8'/%3E%3Cstop offset='50%25' stop-color='%2332b9ff'/%3E%3Cstop offset='100%25' stop-color='%23a448ff'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='1024' height='1024' rx='220' fill='%2304050a'/%3E%3Cpath d='M512 200 L320 500 Q300 540 320 580 L380 670' fill='none' stroke='url(%23mini)' stroke-width='80' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M512 200 L704 500 Q724 540 704 580 L644 670' fill='none' stroke='url(%23mini)' stroke-width='80' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M512 460 L512 820' fill='none' stroke='url(%23mini)' stroke-width='80' stroke-linecap='round'/%3E%3C/svg%3E" alt="Yeko Lab Logo" width="42" height="42" />
               </span>
@@ -457,7 +457,7 @@
           </article>
         </div>
         <div class="hero__actions" style="margin-top:2rem;">
-          <a class="btn primary" href="https://discord.gg/yekolab" target="_blank" rel="noopener">Open the tutorial thread</a>
+          <a class="btn primary" href="https://discord.gg/S5xJVZpS" target="_blank" rel="noopener">Open the tutorial thread</a>
           <a class="btn ghost" href="https://docs.openclaw.ai" target="_blank" rel="noopener">Read the OpenClaw docs</a>
         </div>
       </section>
@@ -469,8 +469,8 @@
             <h2>Let’s talk Summer 2026.</h2>
             <p>Machine learning, electrical, avionics, or systems internships. Remote preferred; Dallas relocation is easy if housing is covered.</p>
             <div class="hero__actions">
-              <a class="btn primary" href="mailto:yekopin@gmail.com">Email me</a>
-              <a class="btn ghost" href="https://discord.gg/yekolab" target="_blank" rel="noopener">Ping me on Discord</a>
+              <a class="btn primary" href="#contact-modal" id="contact-trigger">Email me</a>
+              <a class="btn ghost" href="https://discord.gg/S5xJVZpS" target="_blank" rel="noopener">Ping me on Discord</a>
               <a class="btn ghost" href="https://www.linkedin.com/in/collinsculbert/" target="_blank" rel="noopener">LinkedIn</a>
             </div>
           </div>
@@ -487,6 +487,20 @@
         </div>
       </section>
     </main>
+
+    <!-- Contact Modal -->
+    <div id="contact-modal" style="display:none;position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,0.7);backdrop-filter:blur(8px);align-items:center;justify-content:center;">
+      <div style="background:#0a0d1a;border:1px solid rgba(255,255,255,0.1);border-radius:28px;padding:2.5rem;max-width:480px;width:90%;position:relative;box-shadow:0 40px 80px rgba(0,0,0,0.6);">
+        <button id="close-modal" style="position:absolute;top:1rem;right:1.2rem;background:none;border:none;color:rgba(255,255,255,0.5);font-size:1.4rem;cursor:pointer;line-height:1;">✕</button>
+        <p style="text-transform:uppercase;letter-spacing:.2em;font-size:.75rem;color:#49ffe0;margin:0 0 .5rem;">Get in touch</p>
+        <h3 style="margin:0 0 .5rem;font-size:1.4rem;">Send me a note</h3>
+        <p style="color:#a2b0d9;font-size:.9rem;margin:0 0 1.5rem;">Summer 2026 internship inquiries, collaborations, or just saying hi — I read everything.</p>
+        <label style="display:block;font-size:.85rem;margin-bottom:.3rem;color:#a2b0d9;">Your message</label>
+        <textarea id="contact-body" rows="5" placeholder="Hi Collins, I came across your portfolio and..." style="width:100%;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:14px;color:#f4f6ff;padding:.9rem 1rem;font-family:inherit;font-size:.95rem;resize:vertical;box-sizing:border-box;"></textarea>
+        <a id="contact-send" href="#" class="btn primary" style="margin-top:1.2rem;display:inline-flex;text-decoration:none;">Open in mail app →</a>
+        <p style="margin-top:.8rem;font-size:.8rem;color:rgba(162,176,217,.6);">Or email directly: <a href="mailto:coculbert@icloud.com" style="color:#49ffe0;">coculbert@icloud.com</a></p>
+      </div>
+    </div>
 
     <footer class="footer">
       <p>© <span id="year"></span> Yeko Lab. Built with native HTML, CSS, and a sprinkle of JS.</p>
@@ -526,6 +540,21 @@
         card.addEventListener("mouseleave", () => {
           card.style.transform = "perspective(900px) rotateX(0deg) rotateY(0deg)";
         });
+      });
+
+      // Contact modal
+      const modal = document.getElementById("contact-modal");
+      const trigger = document.getElementById("contact-trigger");
+      const closeBtn = document.getElementById("close-modal");
+      const sendBtn = document.getElementById("contact-send");
+      const bodyField = document.getElementById("contact-body");
+      if (trigger) trigger.addEventListener("click", (e) => { e.preventDefault(); modal.style.display = "flex"; });
+      if (closeBtn) closeBtn.addEventListener("click", () => { modal.style.display = "none"; });
+      if (modal) modal.addEventListener("click", (e) => { if (e.target === modal) modal.style.display = "none"; });
+      if (sendBtn) sendBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        const body = encodeURIComponent(bodyField ? bodyField.value : "");
+        window.location.href = "mailto:coculbert@icloud.com?subject=Internship%20Inquiry&body=" + body;
       });
 
       const sparkCards = document.querySelectorAll("[data-spark]");
