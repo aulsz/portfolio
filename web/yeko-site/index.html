@@ -1,0 +1,242 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Landing Page</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="ambient">
+      <span class="orb orb--one"></span>
+      <span class="orb orb--two"></span>
+      <span class="orb orb--three"></span>
+    </div>
+
+    <div class="noise"></div>
+
+    <header class="hero" id="top">
+      <nav class="nav">
+        <div class="logo">
+          <span class="logo__mark" aria-label="Server logo">
+  <svg viewBox="0 0 100 100" width="48" height="48" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true">
+    <defs>
+      <linearGradient id="ringGrad" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#FF5DB1"/>
+        <stop offset="100%" stop-color="#FFD27A"/>
+      </linearGradient>
+    </defs>
+    <circle cx="50" cy="50" r="33" fill="none" stroke="url(#ringGrad)" stroke-width="14"/>
+    <path d="M47 76 L53 76 L50 88 Z" fill="#FFD27A"/>
+  </svg>
+</span>
+          <div>
+            <p class="logo__title">Yeko Lab</p>
+            <p class="logo__subtitle">Systems â€¢ Strategy â€¢ Story</p>
+          </div>
+        </div>
+        <div class="nav__links">
+          <a href="#work">Work</a>
+          <a href="#knowledge">Knowledge</a>
+          <a href="#community">Community</a>
+          <a href="#contact" class="pill">Contact</a>
+        </div>
+      </nav>
+
+      <div class="hero__content">
+        <div>
+          <p class="tag">Portfolio + Playground</p>
+          <h1>
+            Building elegant systems
+            <span>that feel like future artifacts.</span>
+          </h1>
+          <p class="lede">
+            Curated experiments, client work, and community drop-ins from Yeko.
+            Crafted with intent, documented with care, and always a little bit
+            ahead of schedule.
+          </p>
+          <div class="hero__actions">
+            <a class="btn primary" href="#work">See the builds</a>
+            <a class="btn ghost" href="#knowledge">Download dossier</a>
+          </div>
+        </div>
+        <div class="hero__metrics">
+          <div class="metric-card">
+            <p class="metric-card__label">Deployments</p>
+            <p class="metric-card__value">48</p>
+            <p class="metric-card__hint">Full-stack launches since 2021</p>
+          </div>
+          <div class="metric-card">
+            <p class="metric-card__label">Communities Activated</p>
+            <p class="metric-card__value">12</p>
+            <p class="metric-card__hint">Across Discord, Slack, on-site</p>
+          </div>
+          <div class="metric-card">
+            <p class="metric-card__label">Avg. ROI</p>
+            <p class="metric-card__value">327%</p>
+            <p class="metric-card__hint">Measured within 60 days</p>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="section" id="work">
+        <div class="section__header">
+          <p class="tag">Featured Case Studies</p>
+          <h2>Proof-of-work meets playful polish.</h2>
+          <p>
+            Hover / tap cards for live context, micro-interactions, and quick
+            stats.
+          </p>
+        </div>
+        <div class="case-grid">
+          <article class="case" data-tilt>
+            <div class="case__meta">
+              <p class="case__tag">AI Ops</p>
+              <p class="case__year">2025</p>
+            </div>
+            <h3>Autonomous Support Desk</h3>
+            <p>
+              Designed workflows + guardrails for an LLM-first support org,
+              trimming response time from 9h â†’ 46m.
+            </p>
+            <ul>
+              <li>LLM orchestration + fallback</li>
+              <li>Escalation map</li>
+              <li>Real-time telemetry wall</li>
+            </ul>
+          </article>
+
+          <article class="case" data-tilt>
+            <div class="case__meta">
+              <p class="case__tag">Community</p>
+              <p class="case__year">2024</p>
+            </div>
+            <h3>Creator Portfolio HUB</h3>
+            <p>
+              Built a self-serve showcase with programmable prompts, unlocking a
+              4Ã— increase in inbound demos.
+            </p>
+            <ul>
+              <li>Composable CMS</li>
+              <li>WebGL hero motion</li>
+              <li>Discord role sync</li>
+            </ul>
+          </article>
+
+          <article class="case" data-tilt>
+            <div class="case__meta">
+              <p class="case__tag">Product</p>
+              <p class="case__year">2023</p>
+            </div>
+            <h3>Spatial Strategy Desk</h3>
+            <p>
+              Immersive analytics environment for a logistics team, with
+              multi-surface interaction + haptics.
+            </p>
+            <ul>
+              <li>Canvas orchestrations</li>
+              <li>BLE beacon mapping</li>
+              <li>Executive-ready reporting</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section class="section section--alt" id="knowledge">
+        <div class="section__header">
+            <p class="tag">Knowledge Vault</p>
+            <h2>Living playbooks and field notes.</h2>
+            <p>Indexed, versioned, and open to collaborators.</p>
+        </div>
+        <div class="timeline">
+          <article class="timeline__item">
+            <p class="timeline__label">Latest Drop</p>
+            <h3>Signal Choreography 101</h3>
+            <p>How to orchestrate multi-agent comms without burning trust.</p>
+            <button class="chip">Read excerpt</button>
+          </article>
+          <article class="timeline__item">
+            <p class="timeline__label">Playbook</p>
+            <h3>Zero-Noise Community Launch</h3>
+            <p>Template + automation pack for spinning up curated spaces.</p>
+            <button class="chip">Download kit</button>
+          </article>
+          <article class="timeline__item">
+            <p class="timeline__label">Notebook</p>
+            <h3>LLM QA Stress Tests</h3>
+            <p>Benchmarks, failure libraries, and recovery patterns.</p>
+            <button class="chip">View results</button>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" id="community">
+        <div class="section__header">
+          <p class="tag">Community Pulse</p>
+          <h2>Builders, operators, and co-conspirators.</h2>
+          <p>Live stats from the Yeko Discord + partner pods.</p>
+        </div>
+        <div class="community-grid">
+          <div class="community-card" data-spark>
+            <p class="community-card__value">312</p>
+            <p class="community-card__label">Active Members</p>
+            <p class="community-card__hint">38 currently in co-work mode</p>
+          </div>
+          <div class="community-card" data-spark>
+            <p class="community-card__value">27</p>
+            <p class="community-card__label">Live Threads</p>
+            <p class="community-card__hint">Ops, AI, design, IRL</p>
+          </div>
+          <div class="community-card" data-spark>
+            <p class="community-card__value">6</p>
+            <p class="community-card__label">Open Collaborations</p>
+            <p class="community-card__hint">Seeking signal boosters</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--cta" id="contact">
+        <div class="cta">
+          <div>
+            <p class="tag">Next Slot</p>
+            <h2>Book a lab session.</h2>
+            <p>
+              Weekly office hours for founders, operators, and teams that want a
+              sharper operating system.
+            </p>
+            <div class="hero__actions">
+              <a class="btn primary" href="mailto:hello@yeko.studio">Request brief</a>
+              <a class="btn ghost" href="#top">Back to top</a>
+            </div>
+          </div>
+          <div class="cta__card" data-tilt>
+            <p class="cta__title">Session Menu</p>
+            <ul>
+              <li>âš¡ Rapid ops triage</li>
+              <li>ðŸ§  AI workflow mapping</li>
+              <li>ðŸŽ¨ Portfolio positioning</li>
+              <li>ðŸ¤ Partnership strategy</li>
+            </ul>
+            <p class="cta__footer">72h turnaround on follow-ups.</p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p>Â© <span id="year"></span> Yeko Lab. Built with native HTML, CSS, and a sprinkle of JS.</p>
+      <p>Made for async, curated for humans.</p>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
+

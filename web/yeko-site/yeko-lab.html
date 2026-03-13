@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Yeko Lab — Engineering Systems Portfolio</title>
+    <title>Landing Page</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
@@ -20,10 +20,21 @@
     <header class="hero" id="top">
       <nav class="nav">
         <div class="logo">
-          <span class="logo__mark">YL</span>
+          <span class="logo__mark" aria-label="Server logo">
+  <svg viewBox="0 0 100 100" width="48" height="48" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true">
+    <defs>
+      <linearGradient id="ringGrad" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#FF5DB1"/>
+        <stop offset="100%" stop-color="#FFD27A"/>
+      </linearGradient>
+    </defs>
+    <circle cx="50" cy="50" r="33" fill="none" stroke="url(#ringGrad)" stroke-width="14"/>
+    <path d="M47 76 L53 76 L50 88 Z" fill="#FFD27A"/>
+  </svg>
+</span>
           <div>
             <p class="logo__title">Yeko Lab</p>
-            <p class="logo__subtitle">Engineering • AI Ops • Systems</p>
+            <p class="logo__subtitle">Engineering â€¢ AI Ops â€¢ Systems</p>
           </div>
         </div>
         <div class="nav__links">
@@ -126,7 +137,7 @@
       <section class="section section--cta" id="contact">
         <div class="cta">
           <div>
-            <p class="tag">Let’s Build</p>
+            <p class="tag">Letâ€™s Build</p>
             <h2>Need an engineering-grade AI workflow?</h2>
             <p>Reach out with your constraints, stack, and desired outcomes.</p>
             <div class="hero__actions">
@@ -137,10 +148,10 @@
           <div class="cta__card" data-tilt>
             <p class="cta__title">Engagement Scope</p>
             <ul>
-              <li>⚙️ System architecture + guardrails</li>
-              <li>📊 Observability and health reporting</li>
-              <li>🔁 Automation + failure recovery</li>
-              <li>🧪 Pilot-to-production acceleration</li>
+              <li>âš™ï¸ System architecture + guardrails</li>
+              <li>ðŸ“Š Observability and health reporting</li>
+              <li>ðŸ” Automation + failure recovery</li>
+              <li>ðŸ§ª Pilot-to-production acceleration</li>
             </ul>
             <p class="cta__footer">Clear milestones, measurable outcomes.</p>
           </div>
@@ -149,7 +160,7 @@
     </main>
 
     <footer class="footer">
-      <p>© <span id="year"></span> Yeko Lab.</p>
+      <p>Â© <span id="year"></span> Yeko Lab.</p>
       <p>Public engineering portfolio. Private ops are isolated.</p>
     </footer>
 
@@ -166,3 +177,4 @@
     </script>
   </body>
 </html>
+
