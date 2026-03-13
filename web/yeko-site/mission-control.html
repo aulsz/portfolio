@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Mission Control (Private)</title>
+    <style>
+      :root { --bg:#110714; --panel:#1b1022; --text:#ffeefe; --muted:#d8b9da; --pink:#ff67c4; --violet:#b17bff; --line:rgba(255,255,255,.11); }
+      *{box-sizing:border-box}
+      body{margin:0;color:var(--text);font-family:Inter,system-ui,sans-serif;background:radial-gradient(1200px 600px at -10% -10%, #652047 0%, transparent 70%),radial-gradient(900px 700px at 110% 0%, #43205e 0%, transparent 70%),var(--bg)}
+      .hidden{display:none}
+      .gate{min-height:100vh;display:grid;place-items:center;padding:20px}
+      .card{width:min(420px,95vw);background:rgba(255,255,255,.06);border:1px solid var(--line);border-radius:16px;padding:20px}
+      input,button{width:100%;padding:11px 12px;border-radius:10px;border:1px solid var(--line);background:#1a1123;color:var(--text)}
+      button{margin-top:10px;background:linear-gradient(120deg,var(--pink),var(--violet));color:#22001f;border:none;font-weight:700;cursor:pointer}
+      .shell{max-width:1200px;margin:0 auto;padding:24px}
+      .row{display:grid;grid-template-columns:repeat(4,minmax(150px,1fr));gap:10px}
+      .kpi{background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:12px;padding:12px}
+      .panel{margin-top:12px;background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:12px;padding:14px}
+      @media(max-width:900px){.row{grid-template-columns:repeat(2,minmax(130px,1fr));}}
+    </style>
+  </head>
+  <body>
+    <section class="gate" id="gate">
+      <div class="card">
+        <h2 style="margin-top:0">Private Mission Control</h2>
+        <p style="color:var(--muted)">Owner-only view. Enter passphrase.</p>
+        <input id="pass" type="password" placeholder="Passphrase" />
+        <button id="unlock">Unlock</button>
+        <p id="err" style="color:#ff9ab0;display:none">Incorrect passphrase.</p>
+      </div>
+    </section>
+
+    <main id="app" class="hidden">
+      <div class="shell">
+        <h1>Mission Control — Monogatari Pink</h1>
+        <p style="color:var(--muted)">Private ops dashboard for Yeko only.</p>
+        <div class="row">
+          <div class="kpi"><small>Active Jobs</small><h2>9</h2></div>
+          <div class="kpi"><small>Today Tasks</small><h2>6</h2></div>
+          <div class="kpi"><small>Health</small><h2>97%</h2></div>
+          <div class="kpi"><small>Risk</small><h2>Low</h2></div>
+        </div>
+        <div class="panel"><h3>Pipeline</h3><p>Daily Brief • School Reminders • Market Pulse • Backups • Watchdog</p></div>
+      </div>
+    </main>
+
+    <script>
+      // NOTE: client-side passphrase is obfuscation, not true server security.
+      const EXPECTED = "yeko-shinobu-private";
+      document.getElementById('unlock').onclick = () => {
+        const ok = document.getElementById('pass').value === EXPECTED;
+        document.getElementById('err').style.display = ok ? 'none' : 'block';
+        if (ok) {
+          document.getElementById('gate').classList.add('hidden');
+          document.getElementById('app').classList.remove('hidden');
+        }
+      };
+    </script>
+  </body>
+</html>
