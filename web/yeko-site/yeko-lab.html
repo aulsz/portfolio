@@ -154,5 +154,15 @@
     </footer>
 
     <script src="script.js"></script>
+    <script>
+      // Owner shortcut: double-click logo to open private Mission Control.
+      const logoMark = document.querySelector('.logo__mark');
+      if (logoMark) {
+        logoMark.title = 'Owner shortcut enabled';
+        logoMark.addEventListener('dblclick', () => {
+          window.location.href = 'mission-control.html';
+        });
+      }
+    </script>
   </body>
 </html>
