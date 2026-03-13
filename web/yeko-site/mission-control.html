@@ -103,7 +103,7 @@
         <div class="m" style="margin-bottom:6px">DEVICE CAM // SHINOBU</div>
         <div class="cam-screen">
           <div class="cam-inner">
-            <div class="avatar-wrap"><img src="./shinobu-cam.jpg" alt="Shinobu" /></div>\n            <div><div style="font-weight:700;font-size:20px">SHINOBU CAM // ONLINE</div><div class="m">"Monitoring mission feed..."</div></div>
+            <div class="avatar-wrap" style="display:grid;place-items:center;font-size:28px;">忍</div>\n            <div><div style="font-weight:700;font-size:20px">SHINOBU CAM // ONLINE</div><div class="m">"Monitoring mission feed..."</div></div>
           </div>
         </div>
       </div>
@@ -124,7 +124,7 @@
 
   <script src="mission-data.js"></script>
   <script>
-    const EXPECTED='Tibabug7172';
+    const EXPECTED='CHANGE_ME_LOCALLY';
     const state={view:'overview',queue:{overview:['Review morning mission snapshot','Check school due < 24h','Triage internship lead shortlist'],school:['ESET due soon','Validate Canvas ICS pull','Publish school digest'],career:['Send 2 follow-up emails','Shortlist 3 openings','Update project bullet metrics'],market:['Check macro catalysts','Publish scenario probabilities','Review invalidation signals'],reliability:['Verify nightly backup','Run recovery drill check','Audit watchdog anti-loop']},signals:[{s:'ok',t:'Discord path stable',m:'watchdog healthy'},{s:'ok',t:'School reminders running',m:'ICS sync active'},{s:'warn',t:'Update available',m:'OpenClaw npm pending'}],logs:[{s:'ok',t:'08:30 Daily brief posted'},{s:'ok',t:'07:00 School digest posted'},{s:'warn',t:'Gateway update pending'},{s:'ok',t:'Market pulse generated'}]};
     const markets=[{name:'S&P 500 (SPX)',value:'5,214.2',change:'+0.42%'},{name:'NASDAQ 100 (NDX)',value:'18,239.6',change:'+0.55%'},{name:'Dow Jones (DJIA)',value:'39,112.4',change:'-0.08%'},{name:'Russell 2000 (RUT)',value:'2,083.7',change:'+0.21%'},{name:'FTSE 100',value:'8,032.5',change:'-0.19%'},{name:'DAX 40',value:'18,004.8',change:'+0.31%'},{name:'Nikkei 225',value:'39,501.1',change:'+0.27%'},{name:'Hang Seng',value:'17,214.6',change:'-0.36%'}];
     function mergeMissionData(p){if(!p||typeof p!=='object')return;if(p.queue)state.queue={...state.queue,...p.queue};if(Array.isArray(p.signals))state.signals=p.signals;if(Array.isArray(p.logs))state.logs=p.logs} mergeMissionData(window.MISSION_DATA);
@@ -145,4 +145,5 @@
   </script>
 </body>
 </html>
+
 

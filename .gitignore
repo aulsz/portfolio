@@ -1,0 +1,14 @@
+# Environment + secrets
+.env
+email_automation/credentials/client_secret.json
+email_automation/credentials/token.json
+
+# Python build artifacts
+__pycache__/
+*.pyc
+
+# Virtual environments
+.venv/
+web/yeko-site/shinobu-cam.jpg
+web/yeko-site/*preview*.png
+web/yeko-site/*preview*.gif
