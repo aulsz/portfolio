@@ -848,3 +848,22 @@ body{
   .fx-title,.fx-section{animation:none !important}
   .fx-title::after{animation:none !important}
 }
+
+/* Spawn text effect */
+.spawn-char{
+  display:inline-block;
+  opacity:0;
+  transform: translateY(10px) scale(0.98);
+  filter: blur(1px);
+  animation: spawnChar 420ms cubic-bezier(.21,.87,.34,1) forwards;
+}
+
+@keyframes spawnChar {
+  0% { opacity:0; transform: translateY(10px) scale(0.98); filter: blur(1px); }
+  70% { opacity:1; transform: translateY(0) scale(1); filter: blur(0); }
+  100% { opacity:1; transform: translateY(0) scale(1); filter: blur(0); }
+}
+
+@media (prefers-reduced-motion: reduce){
+  .spawn-char{ animation:none !important; opacity:1 !important; transform:none !important; filter:none !important; }
+}
