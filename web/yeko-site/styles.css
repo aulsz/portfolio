@@ -512,3 +512,99 @@ main {
   backdrop-filter: blur(18px) saturate(1.2) !important;
   -webkit-backdrop-filter: blur(18px) saturate(1.2) !important;
 }
+
+/* === Liquid Glass + Dark Moving Space Theme (override) === */
+:root{
+  --bg:#04070f;
+  --glass-fill: rgba(18, 24, 42, 0.34);
+  --glass-stroke: rgba(255,255,255,0.22);
+  --glass-highlight: rgba(255,255,255,0.32);
+}
+
+body{
+  background:
+    radial-gradient(1200px 700px at 20% -10%, rgba(99,126,255,0.22), transparent 60%),
+    radial-gradient(1000px 700px at 85% 0%, rgba(171,120,255,0.14), transparent 60%),
+    linear-gradient(180deg, #03050c 0%, #060a16 45%, #03050d 100%) !important;
+}
+
+.ambient{
+  filter: saturate(1.15);
+}
+
+.ambient::before,
+.ambient::after{
+  content:"";
+  position:absolute;
+  inset:-25%;
+  pointer-events:none;
+  background-repeat:repeat;
+}
+
+.ambient::before{
+  background-image:
+    radial-gradient(2px 2px at 20px 30px, rgba(255,255,255,.92), transparent 45%),
+    radial-gradient(1.5px 1.5px at 110px 90px, rgba(162,201,255,.86), transparent 45%),
+    radial-gradient(1.8px 1.8px at 230px 150px, rgba(221,196,255,.85), transparent 45%);
+  background-size: 280px 220px;
+  animation: starfieldDriftA 58s linear infinite;
+  opacity:.62;
+}
+
+.ambient::after{
+  background-image:
+    radial-gradient(1.1px 1.1px at 60px 60px, rgba(255,255,255,.85), transparent 45%),
+    radial-gradient(1.5px 1.5px at 160px 120px, rgba(151,190,255,.8), transparent 45%),
+    radial-gradient(1px 1px at 260px 30px, rgba(224,201,255,.8), transparent 45%);
+  background-size: 340px 260px;
+  animation: starfieldDriftB 96s linear infinite;
+  opacity:.5;
+}
+
+@keyframes starfieldDriftA { from {transform:translate3d(0,0,0)} to {transform:translate3d(-280px,-180px,0)} }
+@keyframes starfieldDriftB { from {transform:translate3d(0,0,0)} to {transform:translate3d(-360px,-220px,0)} }
+
+/* stronger moving nebula orbs */
+.orb{filter: blur(36px) saturate(1.2) !important; opacity:.8}
+.orb--one{animation-duration: 22s !important}
+.orb--two{animation-duration: 30s !important}
+.orb--three{animation-duration: 38s !important}
+
+/* Liquid glass panels */
+.metric-card,
+.case,
+.timeline__item,
+.community-card,
+.cta__card,
+.section--alt,
+.purpose-card,
+.discord-card{
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(145deg, rgba(255,255,255,0.16), var(--glass-fill)) !important;
+  border: 1px solid var(--glass-stroke) !important;
+  box-shadow:
+    0 12px 40px rgba(0,0,0,.34),
+    inset 0 1px 0 rgba(255,255,255,.22),
+    inset 0 -1px 0 rgba(255,255,255,.06);
+  backdrop-filter: blur(18px) saturate(1.25) contrast(1.04);
+  -webkit-backdrop-filter: blur(18px) saturate(1.25) contrast(1.04);
+}
+
+.metric-card::before,
+.case::before,
+.timeline__item::before,
+.cta__card::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background: linear-gradient(160deg, rgba(255,255,255,.34), rgba(255,255,255,0) 42%);
+  opacity:.5;
+}
+
+.logo__mark{
+  background: transparent !important;
+  border: 1px solid rgba(255,255,255,0.22) !important;
+  box-shadow: 0 10px 25px rgba(0,0,0,.32);
+}
