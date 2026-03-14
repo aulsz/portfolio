@@ -602,3 +602,55 @@ body{
 
 .logo__mark{display:none !important}
 
+
+
+/* ultra-dense starfield (monochrome) */
+.ambient::before,
+.ambient::after {
+  content:"";
+  position:absolute;
+  inset:-30%;
+  pointer-events:none;
+  background-repeat:repeat;
+}
+
+.ambient::before {
+  background-image:
+    radial-gradient(2px 2px at 18px 28px, rgba(255,255,255,.95), transparent 46%),
+    radial-gradient(1.6px 1.6px at 90px 74px, rgba(255,255,255,.9), transparent 46%),
+    radial-gradient(1.2px 1.2px at 170px 130px, rgba(255,255,255,.78), transparent 46%),
+    radial-gradient(1.8px 1.8px at 250px 200px, rgba(255,255,255,.82), transparent 46%);
+  background-size: 220px 180px;
+  animation: starDriftDenseA 42s linear infinite;
+  opacity:.78;
+}
+
+.ambient::after {
+  background-image:
+    radial-gradient(1px 1px at 40px 55px, rgba(255,255,255,.86), transparent 46%),
+    radial-gradient(1.3px 1.3px at 120px 100px, rgba(255,255,255,.8), transparent 46%),
+    radial-gradient(1.1px 1.1px at 210px 40px, rgba(255,255,255,.76), transparent 46%),
+    radial-gradient(1.4px 1.4px at 300px 150px, rgba(255,255,255,.72), transparent 46%);
+  background-size: 260px 210px;
+  animation: starDriftDenseB 64s linear infinite;
+  opacity:.62;
+}
+
+@keyframes starDriftDenseA { from { transform: translate3d(0,0,0);} to { transform: translate3d(-260px,-180px,0);} }
+@keyframes starDriftDenseB { from { transform: translate3d(0,0,0);} to { transform: translate3d(-320px,-220px,0);} }
+
+/* reduce panel separation from background */
+.metric-card,
+.case,
+.timeline__item,
+.community-card,
+.cta__card,
+.section--alt,
+.purpose-card,
+.discord-card {
+  background: rgba(10,10,10,0.26) !important;
+  border: 1px solid rgba(255,255,255,0.16) !important;
+  backdrop-filter: blur(16px) saturate(1.05) !important;
+  -webkit-backdrop-filter: blur(16px) saturate(1.05) !important;
+  box-shadow: 0 10px 32px rgba(0,0,0,.45) !important;
+}
