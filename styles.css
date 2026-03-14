@@ -791,37 +791,6 @@ body{
   .hero__content{grid-template-columns:1fr !important;}
 }
 
-/* === Marathon-inspired monochrome vibe layer === */
-.ambient-silhouette{
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 0;
-}
-
-.ambient-silhouette::before{
-  content:"";
-  position:absolute;
-  right: 6vw;
-  bottom: -2vh;
-  width:min(42vw, 560px);
-  height:min(88vh, 920px);
-  opacity:.24;
-  filter: blur(0.4px) contrast(1.08);
-  background-repeat:no-repeat;
-  background-size:contain;
-  background-position:bottom right;
-  mix-blend-mode:screen;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 420 900'%3E%3Cg fill='%23ffffff'%3E%3Cpath d='M220 40c55 0 95 43 95 98 0 41-21 66-43 85l-9 7 22 18c31 27 52 70 52 119v112c0 20 8 30 21 44 16 16 24 35 24 58v236c0 15-12 27-27 27H86c-15 0-27-12-27-27V581c0-23 8-42 24-58 13-14 21-24 21-44V367c0-49 21-92 52-119l22-18-9-7c-22-19-43-44-43-85 0-55 40-98 94-98z'/%3E%3Cpath d='M222 284c-65 0-118 53-118 118v94c0 13-5 21-12 30-8 9-12 21-12 34v208h284V560c0-13-4-25-12-34-7-9-12-17-12-30v-94c0-65-53-118-118-118z' opacity='.82'/%3E%3C/g%3E%3C/svg%3E");
-}
-
-.ambient-silhouette::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  background: radial-gradient(600px 600px at 76% 68%, rgba(255,255,255,.10), transparent 58%);
-  opacity:.45;
-}
 
 /* sharper monochrome, geometric sci-fi tone */
 .hero h1{
@@ -835,3 +804,6 @@ body{
 .metric-card__label{
   letter-spacing:.28em !important;
 }
+
+.chip{display:inline-flex;align-items:center;justify-content:center;text-decoration:none}
+
