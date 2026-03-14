@@ -654,3 +654,119 @@ body{
   -webkit-backdrop-filter: blur(16px) saturate(1.05) !important;
   box-shadow: 0 10px 32px rgba(0,0,0,.45) !important;
 }
+
+/* === Cinematic Neo-Landing Pass (inspired style) === */
+:root{
+  --fg:#f5f5f5;
+  --muted:#bfbfbf;
+  --accent:#ffffff;
+  --accent-2:#d9d9d9;
+  --accent-3:#9f9f9f;
+}
+
+body{
+  background:
+    radial-gradient(1200px 700px at 50% -20%, rgba(255,255,255,0.08), transparent 58%),
+    radial-gradient(900px 600px at 10% 120%, rgba(255,255,255,0.05), transparent 55%),
+    linear-gradient(180deg, #000000 0%, #050505 45%, #000000 100%) !important;
+}
+
+.noise{
+  opacity:.18 !important;
+  mix-blend-mode:soft-light !important;
+}
+
+.hero{
+  padding-top:3.2rem !important;
+  padding-bottom:5.2rem !important;
+}
+
+.hero h1{
+  font-size: clamp(3.2rem, 10vw, 7.2rem) !important;
+  line-height: .96 !important;
+  letter-spacing: -.03em;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.hero h1 span{
+  color:#f0f0f0 !important;
+  opacity:.92;
+}
+
+.lede{
+  font-size: clamp(1rem, 1.6vw, 1.25rem) !important;
+  color: var(--muted) !important;
+  max-width: 60ch !important;
+}
+
+.tag{
+  color:#e5e5e5 !important;
+  letter-spacing:.28em !important;
+  opacity:.85;
+}
+
+.nav{
+  border:1px solid rgba(255,255,255,.11);
+  border-radius:18px;
+  padding:.8rem 1rem;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  background: rgba(10,10,10,.32);
+}
+
+.logo__title{
+  margin:0;
+  font-weight:700;
+  text-transform: uppercase;
+  letter-spacing:.08em;
+}
+
+.logo__subtitle{
+  opacity:.8;
+}
+
+.btn.primary{
+  background: linear-gradient(135deg, #ffffff, #d0d0d0) !important;
+  color:#070707 !important;
+  box-shadow: 0 10px 30px rgba(255,255,255,.18) !important;
+}
+
+.btn.ghost{
+  border-color: rgba(255,255,255,.26) !important;
+}
+
+.metric-card,
+.case,
+.timeline__item,
+.community-card,
+.cta__card,
+.section--alt,
+.purpose-card,
+.discord-card{
+  background: linear-gradient(160deg, rgba(255,255,255,.12), rgba(12,12,12,.3)) !important;
+  border: 1px solid rgba(255,255,255,.22) !important;
+  backdrop-filter: blur(20px) saturate(1.08) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(1.08) !important;
+  box-shadow: 0 18px 50px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.26) !important;
+}
+
+.case:hover,
+.metric-card:hover,
+.timeline__item:hover,
+.community-card:hover,
+.cta__card:hover{
+  transform: translateY(-6px) !important;
+  border-color: rgba(255,255,255,.35) !important;
+}
+
+.section__header h2{
+  font-size: clamp(2.4rem, 5vw, 4rem) !important;
+  text-transform: uppercase;
+  letter-spacing: -.02em;
+}
+
+.footer{
+  border-top:1px solid rgba(255,255,255,.12) !important;
+  color:#b8b8b8 !important;
+}
