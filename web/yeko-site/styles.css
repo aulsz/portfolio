@@ -807,3 +807,44 @@ body{
 
 .chip{display:inline-flex;align-items:center;justify-content:center;text-decoration:none}
 
+
+/* Futuristic text animations */
+.logo__subtitle{min-height:1.1rem}
+.fx-title{
+  position:relative;
+  animation: titlePulse 5.5s ease-in-out infinite;
+}
+.fx-title::after{
+  content:"";
+  position:absolute;
+  left:0; right:0; bottom:-8px;
+  height:1px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.55), transparent);
+  animation: sweepLine 3.6s ease-in-out infinite;
+}
+
+.fx-section{
+  position:relative;
+  animation: sectionGlow 6.2s ease-in-out infinite;
+}
+
+@keyframes titlePulse {
+  0%,100% { text-shadow: 0 0 0 rgba(255,255,255,0); transform: translateY(0); }
+  45% { text-shadow: 0 0 18px rgba(255,255,255,.18), 0 0 40px rgba(255,255,255,.08); transform: translateY(-1px); }
+  55% { text-shadow: 0 0 8px rgba(255,255,255,.14); }
+}
+
+@keyframes sweepLine {
+  0%,100% { opacity:.2; transform: scaleX(.55); }
+  50% { opacity:.95; transform: scaleX(1); }
+}
+
+@keyframes sectionGlow {
+  0%,100% { opacity:.92; letter-spacing: -0.01em; }
+  50% { opacity:1; letter-spacing: 0; text-shadow: 0 0 12px rgba(255,255,255,.12); }
+}
+
+@media (prefers-reduced-motion: reduce){
+  .fx-title,.fx-section{animation:none !important}
+  .fx-title::after{animation:none !important}
+}
