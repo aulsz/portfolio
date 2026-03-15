@@ -78,9 +78,11 @@
       .logo { display: flex; align-items: center; gap: 1rem; }
       .logo__mark {
         width: 48px; height: 48px; border-radius: 16px;
-        background: linear-gradient(135deg, var(--accent-2), var(--accent));
-        display: grid; place-items: center; font-weight: 700;
+        border: 1px solid rgba(255,255,255,0.2);
+        overflow: hidden;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.35);
       }
+      .logo__mark img { width: 100%; height: 100%; object-fit: cover; display: block; }
       .logo__subtitle { color: var(--muted); margin: 0; font-size: 0.85rem; }
       .nav__links { display: flex; gap: 1rem; align-items: center; }
       .nav__links a { font-weight: 500; opacity: 0.85; }
@@ -111,6 +113,12 @@
         letter-spacing: 0.08em;
         margin-top: 0.7rem;
         min-height: 1.4rem;
+      }
+      .type-line--section {
+        color: #9dd8ff;
+        font-size: 0.82rem;
+        letter-spacing: 0.11em;
+        opacity: 0.9;
       }
       @keyframes pulseGlow {
         0%, 100% { filter: brightness(1); }
@@ -232,7 +240,7 @@
     <header class="hero" id="top">
       <nav class="nav">
         <div class="logo">
-          <span class="logo__mark">YL</span>
+          <span class="logo__mark"><img src="./assets/discord-logo.png" alt="Landing Page server logo" /></span>
           <div>
             <p class="logo__title">Landing Page</p>
             <p class="logo__subtitle">Systems • Strategy • Story</p>
@@ -299,6 +307,7 @@
           <p class="tag">Why this exists</p>
           <h2>Your briefing on my Summer 2026 ML + EE hunt.</h2>
           <p>I’m pairing agentic AI systems with ESET lab work so recruiters can see the signal fast—how I design, automate, and document hardware-adjacent workflows.</p>
+          <p class="type-line type-line--section" data-phrases="signal-first profile|engineering proof over hype|dark interface, clear intent"></p>
         </div>
         <div class="purpose-grid">
           <article class="purpose-card" data-tilt>
@@ -345,6 +354,7 @@
           <p class="tag">Featured Case Studies</p>
           <h2>Proof-of-work meets playful polish.</h2>
           <p>Hover / tap cards for live context, micro-interactions, and quick stats.</p>
+          <p class="type-line type-line--section" data-phrases="problem to build to result|showing shipped systems|recruiter-readable evidence"></p>
         </div>
         <div class="case-grid">
           <article class="case" data-tilt>
@@ -394,6 +404,7 @@
           <p class="tag">Focus</p>
           <h2>Where I create leverage.</h2>
           <p>AI workflows, hardware labs, and the connective tissue that keeps ops auditable.</p>
+          <p class="type-line type-line--section" data-phrases="automation with guardrails|embedded labs with traceability|flight-track preparation"></p>
         </div>
         <div class="purpose-grid">
           <article class="purpose-card" data-tilt>
@@ -471,20 +482,7 @@
         </div>
         <div class="discord-card" data-tilt>
           <div class="discord-card__badge">
-            <svg viewBox="0 0 1024 1024" width="180" height="180" xmlns="http://www.w3.org/2000/svg">
-              <defs>
-                <linearGradient id="logo-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stop-color="#34ffb8" />
-                  <stop offset="50%" stop-color="#32b9ff" />
-                  <stop offset="100%" stop-color="#a448ff" />
-                </linearGradient>
-              </defs>
-              <rect width="1024" height="1024" rx="220" fill="#04050a" />
-              <circle cx="512" cy="512" r="360" stroke="#1b6bff" stroke-width="18" fill="none" opacity="0.6" />
-              <path d="M512 240 L330 520 C310 550 310 590 330 620 L380 690" fill="none" stroke="url(#logo-grad)" stroke-width="60" stroke-linecap="round" stroke-linejoin="round" />
-              <path d="M512 240 L694 520 C714 550 714 590 694 620 L644 690" fill="none" stroke="url(#logo-grad)" stroke-width="60" stroke-linecap="round" stroke-linejoin="round" />
-              <path d="M512 512 L512 804" fill="none" stroke="url(#logo-grad)" stroke-width="60" stroke-linecap="round" />
-            </svg>
+            <img src="./assets/discord-logo.png" alt="Landing Page server logo" width="180" height="180" style="width:100%;height:100%;object-fit:cover;border-radius:24px;" />
           </div>
           <div class="discord-card__body">
             <p class="tag">Join the conversation</p>
@@ -500,7 +498,7 @@
             </ul>
             <a class="discord-link" href="https://discord.gg/S5xJVZpS" target="_blank" rel="noopener">
               <span class="discord-link__icon">
-                <img src="data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1024 1024'%3E%3Cdefs%3E%3ClinearGradient id='mini' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%2334ffb8'/%3E%3Cstop offset='50%25' stop-color='%2332b9ff'/%3E%3Cstop offset='100%25' stop-color='%23a448ff'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='1024' height='1024' rx='220' fill='%2304050a'/%3E%3Cpath d='M512 200 L320 500 Q300 540 320 580 L380 670' fill='none' stroke='url(%23mini)' stroke-width='80' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M512 200 L704 500 Q724 540 704 580 L644 670' fill='none' stroke='url(%23mini)' stroke-width='80' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M512 460 L512 820' fill='none' stroke='url(%23mini)' stroke-width='80' stroke-linecap='round'/%3E%3C/svg%3E" alt="Landing Page Logo" width="42" height="42" />
+                <img src="./assets/discord-logo.png" alt="Landing Page Logo" width="42" height="42" style="width:42px;height:42px;object-fit:cover;" />
               </span>
               <span>Enter the Lab</span>
             </a>
@@ -543,6 +541,7 @@
             <p class="tag">Contact</p>
             <h2>Let’s talk Summer 2026.</h2>
             <p>Machine learning, electrical, avionics, or systems internships. Remote preferred; Dallas relocation is easy if housing is covered.</p>
+          <p class="type-line type-line--section" data-phrases="ready for summer 2026|ml + ee + avionics track|let’s build something difficult"></p>
             <div class="hero__actions">
               <a class="btn primary" href="#contact-modal" id="contact-trigger">Email me</a>
               <a class="btn ghost" href="https://discord.gg/S5xJVZpS" target="_blank" rel="noopener">Ping me on Discord</a>
@@ -657,36 +656,47 @@
       drawBg();
       window.addEventListener("resize", () => { resizeBg(); initParticles(); });
 
-      // Typing animation
-      const typeTarget = document.getElementById("type-target");
-      const phrases = [
+      // Typing animations (hero + section straps)
+      function startTypewriter(target, phrases, typeMs = 55, delMs = 35, pauseMs = 900) {
+        if (!target || !phrases || !phrases.length) return;
+        let phraseIndex = 0;
+        let charIndex = 0;
+        let deleting = false;
+
+        function tick() {
+          const current = phrases[phraseIndex];
+          target.textContent = deleting
+            ? current.slice(0, charIndex--)
+            : current.slice(0, charIndex++);
+
+          if (!deleting && charIndex > current.length + 1) {
+            deleting = true;
+            setTimeout(tick, pauseMs);
+            return;
+          }
+          if (deleting && charIndex < 0) {
+            deleting = false;
+            phraseIndex = (phraseIndex + 1) % phrases.length;
+          }
+          setTimeout(tick, deleting ? delMs : typeMs);
+        }
+        tick();
+      }
+
+      startTypewriter(document.getElementById("type-target"), [
         "Signal-first design",
         "Dark interface, bright outcomes",
         "AI + embedded systems",
         "Marathon-inspired visual language"
-      ];
-      let phraseIndex = 0;
-      let charIndex = 0;
-      let deleting = false;
-      function tickType() {
-        if (!typeTarget) return;
-        const current = phrases[phraseIndex];
-        typeTarget.textContent = deleting
-          ? current.slice(0, charIndex--)
-          : current.slice(0, charIndex++);
+      ]);
 
-        if (!deleting && charIndex > current.length + 1) {
-          deleting = true;
-          setTimeout(tickType, 900);
-          return;
-        }
-        if (deleting && charIndex < 0) {
-          deleting = false;
-          phraseIndex = (phraseIndex + 1) % phrases.length;
-        }
-        setTimeout(tickType, deleting ? 35 : 55);
-      }
-      tickType();
+      document.querySelectorAll("[data-phrases]").forEach((el) => {
+        const phrases = (el.getAttribute("data-phrases") || "")
+          .split("|")
+          .map((p) => p.trim())
+          .filter(Boolean);
+        startTypewriter(el, phrases, 42, 28, 700);
+      });
 
       const year = document.getElementById("year");
       if (year) year.textContent = new Date().getFullYear();
