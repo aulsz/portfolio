@@ -47,10 +47,31 @@
       .orb--two { bottom: -120px; right: -60px; animation-duration: 22s; }
       .orb--three { top: 40%; right: 20%; animation-duration: 26s; background: radial-gradient(circle, rgba(99, 71, 255, 0.4), transparent 70%); }
       @keyframes float { 0% { transform: translate3d(0,0,0);} 50% { transform: translate3d(30px,-20px,0);} 100% { transform: translate3d(0,0,0);} }
+      #live-bg {
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+        pointer-events: none;
+        opacity: 0.45;
+      }
       .noise {
         position: fixed; inset: 0;
         background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300' viewBox='0 0 300 300'%3E%3Crect width='300' height='300' fill='rgba(0,0,0,0)'/%3E%3Ccircle cx='10' cy='10' r='1' fill='rgba(255,255,255,0.03)'/%3E%3C/svg%3E");
         opacity: 0.35; mix-blend-mode: screen; pointer-events: none; z-index: 0;
+      }
+      .scanlines {
+        position: fixed;
+        inset: 0;
+        background: repeating-linear-gradient(
+          to bottom,
+          rgba(255,255,255,0.02),
+          rgba(255,255,255,0.02) 1px,
+          transparent 1px,
+          transparent 3px
+        );
+        opacity: 0.15;
+        pointer-events: none;
+        z-index: 0;
       }
       .hero { position: relative; z-index: 1; padding: 2.5rem clamp(1.5rem,5vw,4rem) 4rem; }
       .nav { display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
@@ -69,6 +90,32 @@
       .tag { text-transform: uppercase; letter-spacing: 0.2em; font-size: 0.75rem; color: var(--accent); }
       .hero h1 { font-size: clamp(2.8rem,6vw,4.4rem); line-height: 1.1; margin: 0.8rem 0 1rem; }
       .hero h1 span { color: var(--accent-2); }
+      .glitch {
+        position: relative;
+        text-shadow: 0 0 18px rgba(76,163,255,0.25);
+        animation: pulseGlow 3s ease-in-out infinite;
+      }
+      .glitch::before,
+      .glitch::after {
+        content: attr(data-text);
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        opacity: 0.35;
+      }
+      .glitch::before { transform: translate(1px, -1px); color: var(--accent); }
+      .glitch::after { transform: translate(-1px, 1px); color: var(--accent-3); }
+      .type-line {
+        color: var(--accent);
+        font-size: 0.95rem;
+        letter-spacing: 0.08em;
+        margin-top: 0.7rem;
+        min-height: 1.4rem;
+      }
+      @keyframes pulseGlow {
+        0%, 100% { filter: brightness(1); }
+        50% { filter: brightness(1.08); }
+      }
       .lede { color: var(--muted); font-size: 1.1rem; max-width: 52ch; }
       .hero__note { color: rgba(244,246,255,0.75); margin-top: 0.8rem; }
       .hero__actions { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 1.5rem; }
@@ -174,12 +221,14 @@
     </style>
   </head>
   <body>
+    <canvas id="live-bg" aria-hidden="true"></canvas>
     <div class="ambient">
       <span class="orb orb--one"></span>
       <span class="orb orb--two"></span>
       <span class="orb orb--three"></span>
     </div>
     <div class="noise"></div>
+    <div class="scanlines"></div>
     <header class="hero" id="top">
       <nav class="nav">
         <div class="logo">
@@ -202,7 +251,7 @@
       <div class="hero__content">
         <div>
           <p class="tag">Summer 2026 Intern Signal</p>
-          <h1>
+          <h1 class="glitch" data-text="Electrical & Systems Engineering Technology sophomore building agentic AI + flight-ready electronics.">
             Electrical & Systems Engineering Technology sophomore building <span>agentic AI + flight-ready electronics</span>.
           </h1>
           <p class="lede">
@@ -211,6 +260,7 @@
           <p class="hero__note">
             Current focus: the Mainframe Discord AI stack that runs this lab + projects for my Google Machine Learning certification—everything built with native web + GitHub Actions so you can inspect the wiring.
           </p>
+          <p class="type-line">// <span id="type-target"></span><span id="type-cursor">▌</span></p>
           <div class="hero__actions">
             <a class="btn primary" href="#work">See the builds</a>
             <a class="btn ghost" href="https://github.com/aulsz" target="_blank" rel="noopener">GitHub</a>
@@ -533,6 +583,111 @@
     </footer>
 
     <script>
+      // Live background particles (Marathon-style dark tech ambience)
+      const bg = document.getElementById("live-bg");
+      const bgCtx = bg ? bg.getContext("2d") : null;
+      const particles = [];
+      let w = window.innerWidth;
+      let h = window.innerHeight;
+
+      function resizeBg() {
+        if (!bg) return;
+        w = window.innerWidth;
+        h = window.innerHeight;
+        bg.width = Math.floor(w * devicePixelRatio);
+        bg.height = Math.floor(h * devicePixelRatio);
+        bg.style.width = w + "px";
+        bg.style.height = h + "px";
+        if (bgCtx) bgCtx.setTransform(devicePixelRatio, 0, 0, devicePixelRatio, 0, 0);
+      }
+
+      function initParticles() {
+        particles.length = 0;
+        const count = Math.max(30, Math.floor((w * h) / 28000));
+        for (let i = 0; i < count; i++) {
+          particles.push({
+            x: Math.random() * w,
+            y: Math.random() * h,
+            vx: (Math.random() - 0.5) * 0.35,
+            vy: (Math.random() - 0.5) * 0.35,
+            r: Math.random() * 1.8 + 0.8
+          });
+        }
+      }
+
+      function drawBg() {
+        if (!bgCtx) return;
+        bgCtx.clearRect(0, 0, w, h);
+
+        for (const p of particles) {
+          p.x += p.vx;
+          p.y += p.vy;
+          if (p.x < 0 || p.x > w) p.vx *= -1;
+          if (p.y < 0 || p.y > h) p.vy *= -1;
+
+          bgCtx.beginPath();
+          bgCtx.fillStyle = "rgba(73,255,224,0.5)";
+          bgCtx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+          bgCtx.fill();
+        }
+
+        for (let i = 0; i < particles.length; i++) {
+          for (let j = i + 1; j < particles.length; j++) {
+            const a = particles[i], b = particles[j];
+            const dx = a.x - b.x;
+            const dy = a.y - b.y;
+            const d2 = dx * dx + dy * dy;
+            if (d2 < 14000) {
+              const alpha = 1 - d2 / 14000;
+              bgCtx.strokeStyle = `rgba(76,163,255,${alpha * 0.2})`;
+              bgCtx.lineWidth = 1;
+              bgCtx.beginPath();
+              bgCtx.moveTo(a.x, a.y);
+              bgCtx.lineTo(b.x, b.y);
+              bgCtx.stroke();
+            }
+          }
+        }
+
+        requestAnimationFrame(drawBg);
+      }
+
+      resizeBg();
+      initParticles();
+      drawBg();
+      window.addEventListener("resize", () => { resizeBg(); initParticles(); });
+
+      // Typing animation
+      const typeTarget = document.getElementById("type-target");
+      const phrases = [
+        "Signal-first design",
+        "Dark interface, bright outcomes",
+        "AI + embedded systems",
+        "Marathon-inspired visual language"
+      ];
+      let phraseIndex = 0;
+      let charIndex = 0;
+      let deleting = false;
+      function tickType() {
+        if (!typeTarget) return;
+        const current = phrases[phraseIndex];
+        typeTarget.textContent = deleting
+          ? current.slice(0, charIndex--)
+          : current.slice(0, charIndex++);
+
+        if (!deleting && charIndex > current.length + 1) {
+          deleting = true;
+          setTimeout(tickType, 900);
+          return;
+        }
+        if (deleting && charIndex < 0) {
+          deleting = false;
+          phraseIndex = (phraseIndex + 1) % phrases.length;
+        }
+        setTimeout(tickType, deleting ? 35 : 55);
+      }
+      tickType();
+
       const year = document.getElementById("year");
       if (year) year.textContent = new Date().getFullYear();
 
