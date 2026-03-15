@@ -4,9 +4,9 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Landing Page • AI Systems + ESET</title>
-    <meta name="description" content="Dallas-based ESET sophomore building agentic AI systems and embedded lab workflows for Summer 2026 ML/EE internships." />
+    <meta name="description" content="Dallas-based ESET sophomore building agentic AI systems and embedded lab workflows for ML/EE roles." />
     <meta property="og:title" content="Landing Page — AI Systems + ESET Portfolio" />
-    <meta property="og:description" content="Project-ready portfolio for ML, electrical, and avionics internship roles." />
+    <meta property="og:description" content="Project-ready portfolio for ML, electrical, and avionics roles." />
     <meta property="og:type" content="website" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -18,9 +18,9 @@
       :root {
         font-family: "Space Grotesk", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
         color-scheme: dark;
-        --bg: #04050a;
+        --bg: #010103;
         --fg: #f4f6ff;
-        --muted: #a2b0d9;
+        --muted: #93a1c8;
         --accent: #49ffe0;
         --accent-2: #4ca3ff;
         --accent-3: #c26eff;
@@ -30,7 +30,9 @@
       body {
         margin: 0;
         min-height: 100vh;
-        background: radial-gradient(circle at top, rgba(20, 40, 100, 0.3), transparent 60%), var(--bg);
+        background: radial-gradient(circle at 50% -10%, rgba(14, 22, 52, 0.32), transparent 52%),
+          radial-gradient(circle at 85% 10%, rgba(0, 255, 200, 0.07), transparent 42%),
+          var(--bg);
         color: var(--fg);
         overflow-x: hidden;
       }
@@ -52,7 +54,8 @@
         inset: 0;
         z-index: 0;
         pointer-events: none;
-        opacity: 0.45;
+        opacity: 0.34;
+        mix-blend-mode: screen;
       }
       .noise {
         position: fixed; inset: 0;
@@ -69,13 +72,20 @@
           transparent 1px,
           transparent 3px
         );
-        opacity: 0.15;
+        opacity: 0.13;
         pointer-events: none;
         z-index: 0;
       }
+      .vignette {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: 0;
+        background: radial-gradient(circle at center, transparent 38%, rgba(0,0,0,0.72) 100%);
+      }
       .hero { position: relative; z-index: 1; padding: 2.5rem clamp(1.5rem,5vw,4rem) 4rem; }
       .nav { display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
-      .logo { display: flex; align-items: center; gap: 1rem; }
+      .logo { display: flex; align-items: center; gap: 0.2rem; }
       .logo__mark {
         width: 48px; height: 48px; border-radius: 16px;
         border: 1px solid rgba(255,255,255,0.2);
@@ -131,7 +141,7 @@
       .btn.primary { background: linear-gradient(120deg, var(--accent-2), var(--accent)); color: #020205; box-shadow: 0 15px 45px rgba(73,255,224,0.25); }
       .btn.ghost { border-color: var(--border); color: var(--fg); }
       .btn:hover { transform: translateY(-3px); }
-      .metric-card { background: rgba(7,10,20,0.8); border: 1px solid var(--border); padding: 1.5rem; border-radius: 22px; backdrop-filter: blur(16px); box-shadow: 0 20px 60px rgba(0,0,0,0.4); }
+      .metric-card { background: rgba(3,5,10,0.9); border: 1px solid rgba(96,124,195,0.25); padding: 1.5rem; border-radius: 22px; backdrop-filter: blur(16px); box-shadow: 0 24px 70px rgba(0,0,0,0.58); }
       .metric-card__label { opacity: 0.7; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 0.2em; }
       .metric-card__value { font-size: 2.8rem; margin: 0.5rem 0; }
       .metric-card__hint { color: var(--muted); font-size: 0.9rem; }
@@ -151,13 +161,13 @@
       }
       .proof-chip b { display:block; font-size:1rem; margin-bottom:0.2rem; }
       .proof-chip span { color: var(--muted); font-size:0.86rem; }
-      .section--alt { background: rgba(4,6,12,0.7); }
+      .section--alt { background: rgba(2,3,7,0.9); }
       .section__header { max-width: 720px; margin-bottom: 2.5rem; }
       .section__header h2 { font-size: clamp(2rem,4vw,3rem); margin: 0.4rem 0 0.6rem; }
       .purpose-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(240px,1fr)); gap: 1.5rem; }
       .purpose-card {
         padding: 1.5rem; border-radius: 24px; border: 1px solid var(--border);
-        background: rgba(10,14,25,0.85); box-shadow: inset 0 0 0 1px rgba(255,255,255,0.02);
+        background: rgba(4,7,14,0.9); box-shadow: inset 0 0 0 1px rgba(100,130,210,0.16);
       }
       .purpose-card h3 { margin-top: 0.4rem; }
       .purpose-card ul { margin: 1rem 0 0; padding-left: 1.2rem; color: var(--muted); }
@@ -237,10 +247,10 @@
     </div>
     <div class="noise"></div>
     <div class="scanlines"></div>
+    <div class="vignette"></div>
     <header class="hero" id="top">
       <nav class="nav">
         <div class="logo">
-          <span class="logo__mark"><img src="./assets/discord-logo.png" alt="Landing Page server logo" /></span>
           <div>
             <p class="logo__title">Landing Page</p>
             <p class="logo__subtitle">Systems • Strategy • Story</p>
@@ -258,7 +268,7 @@
       </nav>
       <div class="hero__content">
         <div>
-          <p class="tag">Summer 2026 Intern Signal</p>
+          <p class="tag">Engineering + AI Systems</p>
           <h1 class="glitch" data-text="Electrical & Systems Engineering Technology sophomore building agentic AI + flight-ready electronics.">
             Electrical & Systems Engineering Technology sophomore building <span>agentic AI + flight-ready electronics</span>.
           </h1>
@@ -276,8 +286,8 @@
           </div>
           <div class="proof-strip">
             <div class="proof-chip"><b>Location</b><span>Dallas, TX</span></div>
-            <div class="proof-chip"><b>Availability</b><span>Summer 2026 • May–Aug</span></div>
-            <div class="proof-chip"><b>Internship Fit</b><span>ML/AI • EE • Avionics</span></div>
+            <div class="proof-chip"><b>Availability</b><span>Open to upcoming terms</span></div>
+            <div class="proof-chip"><b>Role Fit</b><span>ML/AI • EE • Avionics</span></div>
             <div class="proof-chip"><b>Work Modes</b><span>Remote or housing-provided relocation</span></div>
           </div>
         </div>
@@ -305,7 +315,7 @@
       <section class="section section--purpose" id="about">
         <div class="section__header">
           <p class="tag">Why this exists</p>
-          <h2>Your briefing on my Summer 2026 ML + EE hunt.</h2>
+          <h2>Your briefing on my ML + EE build track.</h2>
           <p>I’m pairing agentic AI systems with ESET lab work so recruiters can see the signal fast—how I design, automate, and document hardware-adjacent workflows.</p>
           <p class="type-line type-line--section" data-phrases="signal-first profile|engineering proof over hype|dark interface, clear intent"></p>
         </div>
@@ -341,7 +351,7 @@
               Local to DFW. Remote work is ideal; on-site is a yes if housing is covered. I plan travel around lab schedules so there’s zero ambiguity on availability.
             </p>
             <ul>
-              <li>Summer 2026 availability</li>
+              <li>Flexible availability</li>
               <li>Flexible start (May–Aug)</li>
               <li>Weekend prototyping hours</li>
             </ul>
@@ -376,7 +386,7 @@
               <p class="case__year">2026</p>
             </div>
             <h3>Cold Outreach Autopilot</h3>
-            <p>Company research + drafting stack for Summer 2026 internships. It scrapes roles, builds briefs, and drafts personalized emails that I review before release.</p>
+            <p>Company research + drafting stack for internship outreach. It scrapes roles, builds briefs, and drafts personalized emails that I review before release.</p>
             <ul>
               <li>Lead database + tagging (AI/EE/rocketry)</li>
               <li>Template engine referencing this site + repo links</li>
@@ -389,7 +399,7 @@
               <p class="case__year">2025–ongoing</p>
             </div>
             <h3>Signal Cart Notebook</h3>
-            <p>A living log of my electronics + controls labs: sensor calibration rigs, embedded test harnesses, and prep work for rocketry avionics internships.</p>
+            <p>A living log of my electronics + controls labs: sensor calibration rigs, embedded test harnesses, and prep work for rocketry avionics roles.</p>
             <ul>
               <li>Embedded lab builds (power, sensor, RF modules)</li>
               <li>Measurement + calibration procedures</li>
@@ -433,7 +443,7 @@
           </article>
           <article class="purpose-card" data-tilt>
             <p class="tag">Rocketry / Flight</p>
-            <h3>Preparing for avionics internships.</h3>
+            <h3>Preparing for avionics roles.</h3>
             <p>
               Building telemetry dashboards and fault trees so I can support propulsion, GNC, or test teams. Currently mapping Dallas-based aerospace targets.
             </p>
@@ -539,9 +549,9 @@
         <div class="cta">
           <div>
             <p class="tag">Contact</p>
-            <h2>Let’s talk Summer 2026.</h2>
-            <p>Machine learning, electrical, avionics, or systems internships. Remote preferred; Dallas relocation is easy if housing is covered.</p>
-          <p class="type-line type-line--section" data-phrases="ready for summer 2026|ml + ee + avionics track|let’s build something difficult"></p>
+            <h2>Let’s build together.</h2>
+            <p>Machine learning, electrical, avionics, or systems roles. Remote preferred; Dallas relocation is easy if housing is covered.</p>
+          <p class="type-line type-line--section" data-phrases="ml + ee + avionics track|systems that ship|let’s build something difficult"></p>
             <div class="hero__actions">
               <a class="btn primary" href="#contact-modal" id="contact-trigger">Email me</a>
               <a class="btn ghost" href="https://discord.gg/S5xJVZpS" target="_blank" rel="noopener">Ping me on Discord</a>
@@ -568,7 +578,7 @@
         <button id="close-modal" style="position:absolute;top:1rem;right:1.2rem;background:none;border:none;color:rgba(255,255,255,0.5);font-size:1.4rem;cursor:pointer;line-height:1;">✕</button>
         <p style="text-transform:uppercase;letter-spacing:.2em;font-size:.75rem;color:#49ffe0;margin:0 0 .5rem;">Get in touch</p>
         <h3 style="margin:0 0 .5rem;font-size:1.4rem;">Send me a note</h3>
-        <p style="color:#a2b0d9;font-size:.9rem;margin:0 0 1.5rem;">Summer 2026 internship inquiries, collaborations, or just saying hi — I read everything.</p>
+        <p style="color:#a2b0d9;font-size:.9rem;margin:0 0 1.5rem;">Internship inquiries, collaborations, or just saying hi — I read everything.</p>
         <label style="display:block;font-size:.85rem;margin-bottom:.3rem;color:#a2b0d9;">Your message</label>
         <textarea id="contact-body" rows="5" placeholder="Hi Collins, I came across your portfolio and..." style="width:100%;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:14px;color:#f4f6ff;padding:.9rem 1rem;font-family:inherit;font-size:.95rem;resize:vertical;box-sizing:border-box;"></textarea>
         <a id="contact-send" href="#" class="btn primary" style="margin-top:1.2rem;display:inline-flex;text-decoration:none;">Open in mail app →</a>
@@ -578,7 +588,7 @@
 
     <footer class="footer">
       <p>© <span id="year"></span> Landing Page. Built with native HTML, CSS, and JavaScript.</p>
-      <p>Purpose: brief recruiters on my AI + ESET work for Summer 2026 internships.</p>
+      <p>Purpose: brief recruiters on my AI + ESET work and shipped systems.</p>
     </footer>
 
     <script>
@@ -751,4 +761,5 @@
     </script>
   </body>
 </html>
+
 
