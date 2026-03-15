@@ -205,6 +205,22 @@
       .case:hover { border-color: rgba(143,151,173,0.55); transform: translateY(-8px); }
       .case__meta { display: flex; justify-content: space-between; font-size: 0.85rem; color: var(--muted); }
       .case ul { padding-left: 1.2rem; margin: 0; color: var(--muted); }
+      .pbr { display: grid; gap: 0.55rem; margin-top: 0.2rem; }
+      .pbr__row {
+        border: 1px solid rgba(255,255,255,0.11);
+        border-radius: 12px;
+        padding: 0.6rem 0.75rem;
+        background: rgba(0,0,0,0.28);
+      }
+      .pbr__row b {
+        display: inline-block;
+        min-width: 58px;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        font-size: 0.68rem;
+        color: #b8bfd3;
+      }
+      .pbr__row span { color: #d7dced; font-size: 0.9rem; }
       .section--alt .timeline { display: grid; gap: 1.5rem; }
       .timeline__item { padding: 1.5rem; border-radius: 22px; border: 1px solid var(--border); background: linear-gradient(180deg, rgba(7,8,13,0.95), rgba(2,3,6,0.95)); box-shadow: inset 0 0 0 1px rgba(255,255,255,0.03), 0 15px 40px rgba(0,0,0,0.45); }
       .timeline__label { color: var(--accent-3); font-size: 0.8rem; letter-spacing: 0.2em; text-transform: uppercase; }
@@ -340,7 +356,7 @@
       <section class="section section--purpose" id="about">
         <div class="section__header">
           <p class="tag">Why this exists</p>
-          <h2>Your briefing on my ML + EE build track.</h2>
+          <h2>Mission dossier: ML + EE systems that ship.</h2>
           <p>I’m pairing agentic AI systems with ESET lab work so recruiters can see the signal fast—how I design, automate, and document hardware-adjacent workflows.</p>
           <p class="type-line type-line--section" data-phrases="signal-first profile|engineering proof over hype|dark interface, clear intent"></p>
         </div>
@@ -387,8 +403,8 @@
       <section class="section" id="work">
         <div class="section__header">
           <p class="tag">Featured Case Studies</p>
-          <h2>Proof-of-work meets playful polish.</h2>
-          <p>Hover / tap cards for live context, micro-interactions, and quick stats.</p>
+          <h2>Case files: problem, build, result.</h2>
+          <p>Structured project evidence for recruiters and engineering leads who scan fast.</p>
           <p class="type-line type-line--section" data-phrases="problem to build to result|showing shipped systems|recruiter-readable evidence"></p>
         </div>
         <div class="case-grid">
@@ -399,11 +415,11 @@
             </div>
             <h3>Mainframe Ops AI</h3>
             <p>The Discord-native assistant that runs this lab: it watches threads, manages memory, and routes tasks through OpenClaw so nothing ships without review.</p>
-            <ul>
-              <li>Multi-tool orchestration + safety rails</li>
-              <li>Heartbeat tasks + status dashboards</li>
-              <li>Human-in-the-loop approvals for external actions</li>
-            </ul>
+            <div class="pbr">
+              <div class="pbr__row"><b>Problem</b><span>Ops signal was fragmented across chats and tools.</span></div>
+              <div class="pbr__row"><b>Build</b><span>Multi-tool orchestration with memory + approval gates.</span></div>
+              <div class="pbr__row"><b>Result</b><span>Faster response loops with auditability and human control.</span></div>
+            </div>
           </article>
           <article class="case" data-tilt>
             <div class="case__meta">
@@ -412,11 +428,11 @@
             </div>
             <h3>Cold Outreach Autopilot</h3>
             <p>Company research + drafting stack for internship outreach. It scrapes roles, builds briefs, and drafts personalized emails that I review before release.</p>
-            <ul>
-              <li>Lead database + tagging (AI/EE/rocketry)</li>
-              <li>Template engine referencing this site + repo links</li>
-              <li>Manual approval + send logging</li>
-            </ul>
+            <div class="pbr">
+              <div class="pbr__row"><b>Problem</b><span>Outreach quality dropped when speed increased.</span></div>
+              <div class="pbr__row"><b>Build</b><span>Research pipeline + personalized draft engine + approval checkpoint.</span></div>
+              <div class="pbr__row"><b>Result</b><span>Higher-quality outreach with consistent voice and tracking.</span></div>
+            </div>
           </article>
           <article class="case" data-tilt>
             <div class="case__meta">
@@ -425,11 +441,11 @@
             </div>
             <h3>Signal Cart Notebook</h3>
             <p>A living log of my electronics + controls labs: sensor calibration rigs, embedded test harnesses, and prep work for rocketry avionics roles.</p>
-            <ul>
-              <li>Embedded lab builds (power, sensor, RF modules)</li>
-              <li>Measurement + calibration procedures</li>
-              <li>Lessons-learned library for flight computer teams</li>
-            </ul>
+            <div class="pbr">
+              <div class="pbr__row"><b>Problem</b><span>Lab progress gets lost without disciplined documentation.</span></div>
+              <div class="pbr__row"><b>Build</b><span>Instrumentation notebooks, test procedures, and reusable checklists.</span></div>
+              <div class="pbr__row"><b>Result</b><span>Repeatable experiments and cleaner handoff to flight teams.</span></div>
+            </div>
           </article>
         </div>
       </section>
@@ -437,7 +453,7 @@
       <section class="section section--alt" id="focus">
         <div class="section__header">
           <p class="tag">Focus</p>
-          <h2>Where I create leverage.</h2>
+          <h2>Operating domains.</h2>
           <p>AI workflows, hardware labs, and the connective tissue that keeps ops auditable.</p>
           <p class="type-line type-line--section" data-phrases="automation with guardrails|embedded labs with traceability|flight-track preparation"></p>
         </div>
